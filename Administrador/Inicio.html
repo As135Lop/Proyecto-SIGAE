@@ -6,12 +6,15 @@
     <title>Inicio - SIGAE</title>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         :root {
             --verde-fondo-principal: #8b907c;
             --verde-solido-paneles: #8a9b6e;
             --cafe-botones: #8b5e3c;
             --borde-negro: #1a1a1a;
+            /* El color del cuadro de bienvenida basado en el fondo */
+            --fondo-box-traslucido: rgba(139, 144, 124, 0.9); 
         }
 
         body {
@@ -24,6 +27,7 @@
             overflow: hidden;
         }
 
+        /* BARRA LATERAL */
         .sidebar {
             width: 220px;
             border-right: 2px solid var(--borde-negro);
@@ -39,6 +43,7 @@
             width: 100px;
             margin-bottom: 20px;
             border-radius: 50%;
+            border: 2px solid var(--borde-negro);
         }
 
         .nav-buttons {
@@ -62,8 +67,9 @@
             font-size: 14px;
         }
 
-        .btn-nav:hover {
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+        /* EFECTO DE BRILLO EN BOTONES */
+        .btn-nav:hover, .btn-nav.active {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
             filter: brightness(1.2);
             transform: scale(1.05);
         }
@@ -74,6 +80,7 @@
             padding-bottom: 20px;
         }
 
+        /* CONTENIDO PRINCIPAL */
         .main-content {
             flex: 1;
             display: flex;
@@ -94,6 +101,7 @@
 
         .user-info { font-size: 14px; line-height: 1.4; }
 
+        /* SECCIÓN CENTRAL CON ICONOS */
         .social-center {
             display: flex;
             flex-direction: column;
@@ -102,32 +110,36 @@
             gap: 8px;
         }
 
-        .social-center span {
-            font-weight: bold;
-            font-size: 15px;
-        }
+        .social-center span { font-weight: bold; font-size: 25px; }
 
-        .social-icons {
+        .social-icons { display: flex; gap: 20px; font-size: 32px; }
+        
+        .social-icons a { 
+            color: inherit; 
+            text-decoration: none; 
+            transition: transform 0.2s; 
             display: flex;
-            gap: 20px;
-            font-size: 26px;
+            background-color: white; /* Círculo/Cuadro blanco detrás para que no haya huecos */
+            border-radius: 50%; 
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--borde-negro);
         }
-
-        .social-icons a { color: inherit; text-decoration: none; transition: transform 0.2s; }
+        
         .social-icons a:hover { transform: translateY(-3px); }
+
+        /* Volvemos a los iconos que sí te funcionaban */
         .fa-whatsapp { color: #25D366; }
         .fa-instagram { color: #E1306C; }
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+        .header-right { display: flex; align-items: center; gap: 20px; }
+        .logo-safime { height: 220px; width: auto; object-fit: contain; }
 
-        .logo-safime { height: 200px; }
-        .settings-icon { font-size: 28px; cursor: pointer; transition: color 0.3s; }
-        .settings-icon:hover { color: #444; }
+        .settings-icon { font-size: 28px; cursor: pointer; }
 
+        /* AREA DE BIENVENIDA */
         .welcome-area {
             flex: 1;
             display: flex;
@@ -139,20 +151,20 @@
 
         .fime-bg-logo {
             position: absolute;
-            width: 600px;
-            opacity: 0.12; 
+            width: 700px;
+            opacity: 0.5; 
             z-index: 0;
             pointer-events: none;
         }
 
         .welcome-box {
-            background-color: var(--verde-fondo-principal);
+            background-color: var(--fondo-box-traslucido); 
             border: 2px solid var(--borde-negro);
             width: 60%;
             padding: 40px;
             z-index: 1;
             position: relative;
-            box-shadow: 12px 12px 0px rgba(0,0,0,0.15);
+            box-shadow: 12px 12px 0px rgba(0,0,0,0.2);
         }
 
         .welcome-header {
@@ -166,17 +178,9 @@
 
         .btn-edit {
             color: #5d4037; 
-            text-decoration: none;
             font-weight: bold;
-            font-size: 14px;
             cursor: pointer;
             padding: 4px 10px;
-            transition: all 0.2s;
-        }
-
-        .btn-edit:hover {
-            background-color: #5d4037;
-            color: white;
         }
 
         .welcome-text {
@@ -184,16 +188,14 @@
             font-size: 16px;
             font-style: italic;
             outline: none;
-            padding: 10px;
-            min-height: 50px;
         }
 
         .box-mini-logo {
             position: absolute;
             bottom: 10px;
             right: 10px;
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             border: 1px solid var(--borde-negro);
             object-fit: cover;
@@ -204,10 +206,10 @@
 <body>
 
     <aside class="sidebar">
-        <img src="Img/Logo de equipo.jpeg" alt="Logo SIGAE" class="logo-sigae">
+        <img src="../Img/Logo de equipo.jpeg" alt="Logo SIGAE" class="logo-sigae">
         
         <nav class="nav-buttons">
-            <a href="Inicio.html" class="btn-nav">Inicio</a>
+            <a href="Inicio.html" class="btn-nav active">Inicio</a>
             <a href="Miembros.html" class="btn-nav">Miembros</a>
             <a href="Administrador.html" class="btn-nav">Administradores</a>
             <a href="Crea_Event.html" class="btn-nav">Eventos</a>
@@ -217,7 +219,7 @@
         </nav>
 
         <div class="logout-container">
-            <a href="Login.html" class="btn-nav" style="display: block;">Cerrar sesión</a>
+            <a href="../Login.html" class="btn-nav" style="display: block;">Cerrar sesión</a>
         </div>
     </aside>
 
@@ -232,19 +234,19 @@
             <div class="social-center">
                 <span>Asociación Cadereyta</span>
                 <div class="social-icons">
-                    <a href="https://wa.me/tu-numero" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="https://instagram.com/tu-usuario" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
 
             <div class="header-right">
-                <img src="Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
+                <img src="../Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
                 <i class="fa-solid fa-gear settings-icon"></i>
             </div>
         </header>
 
         <main class="welcome-area">
-            <img src="Img/fime-logo-cel.png" alt="FIME Background" class="fime-bg-logo">
+            <img src="../Img/fime-logo-cel.png" alt="FIME Background" class="fime-bg-logo">
 
             <div class="welcome-box">
                 <div class="welcome-header">
@@ -253,13 +255,12 @@
                 </div>
                 
                 <div class="welcome-text" id="editableText">
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                 </div>
 
-                <img src="Img/Logo de la Aso.jpeg" alt="Mini Logo" class="box-mini-logo">
+                <img src="../Img/Logo de la Aso.jpeg" alt="Mini Logo" class="box-mini-logo">
             </div>
         </main>
-
     </div>
 
     <script>
@@ -269,25 +270,16 @@
 
         editBtn.addEventListener('click', () => {
             isEditing = !isEditing;
-            
             if (isEditing) {
                 textField.contentEditable = "true";
                 textField.style.backgroundColor = "rgba(255,255,255,0.3)";
-                textField.style.border = "1px dashed #000";
                 textField.focus();
                 editBtn.innerText = "Guardar";
-                editBtn.style.color = "white";
-                editBtn.style.backgroundColor = "green";
-                editBtn.style.borderColor = "green";
             } else {
                 textField.contentEditable = "false";
                 textField.style.backgroundColor = "transparent";
-                textField.style.border = "none";
                 editBtn.innerText = "Editar";
-                editBtn.style.color = "#5d4037";
-                editBtn.style.backgroundColor = "transparent";
-                editBtn.style.borderColor = "#5d4037";
-                alert("Texto actualizado correctamente");
+                alert("Texto actualizado");
             }
         });
     </script>

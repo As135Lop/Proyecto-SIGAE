@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos - SIGAE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <title>Miembros - SIGAE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
             --verde-fondo: #8b907c;
             --verde-paneles: #8a9b6e;
             --cafe-botones: #8b5e3c;
             --borde-negro: #1a1a1a;
-            --capsula-bg: #adbca1;
+            --verde-cuadros-grandes: #5f6f4a;
+            --verde-cuadritos-nombres: #8b907c;
         }
 
         body {
@@ -33,32 +37,39 @@
             align-items: center;
             padding: 10px 0;
             background-color: var(--verde-paneles);
+            z-index: 10;
         }
 
-        .logo-sigae { width: 100px; margin-bottom: 20px; border-radius: 50%; }
+        .logo-sigae {
+            width: 100px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--borde-negro);
+        }
 
-        .nav-buttons { display: flex; flex-direction: column; gap: 12px; width: 85%; }
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 85%;
+        }
 
         .btn-nav {
             background-color: var(--cafe-botones);
             border: 2px solid var(--borde-negro);
-            padding: 8px;
-            font-family: 'Lora', serif;
+            padding: 10px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
             text-align: center;
             text-decoration: none;
             color: black;
+            transition: 0.3s;
         }
 
         .btn-nav:hover {
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-            filter: brightness(1.1);
-            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            transform: scale(1.05);
         }
-
-        .logout-container { margin-top: auto; width: 85%; padding-bottom: 20px; }
 
         .main-content {
             flex: 1;
@@ -68,31 +79,64 @@
         }
 
         .header {
-            height: 110px;
+            height: 100px;
             border-bottom: 2px solid var(--borde-negro);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 0 25px;
             background-color: var(--verde-paneles);
+            z-index: 10;
         }
-
-        .social-center { text-align: center; flex: 1; }
 
         .social-icons {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            font-size: 28px;
-            margin-top: 5px;
+            gap: 20px;
+            font-size: 32px;
         }
 
-        .fa-whatsapp { color: #25D366; }
-        .fa-instagram { color: #E1306C; }
+        .social-icons a {
+            background-color: white;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--borde-negro);
+            color: inherit;
+            text-decoration: none;
+        }
 
-        .logo-safime { height: 75px; }
+        .fa-whatsapp {
+            color: #25D366;
+        }
 
-        .settings-icon { font-size: 25px; color: #333; cursor: default; }
+        .fa-instagram {
+            color: #E1306C;
+        }
+
+        .logo-safime {
+            height: 220px;
+            width: auto;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .fime-bg-logo {
+            position: absolute;
+            left: 50%;
+            top: 55%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            opacity: 0.5;
+            z-index: 0;
+            pointer-events: none;
+        }
 
         .event-container {
             flex: 1;
@@ -115,7 +159,7 @@
         }
 
         .event-panel {
-            background-color: rgba(138, 155, 110, 0.95);
+            background-color: var(--verde-cuadros-grandes);
             border: 2px solid var(--borde-negro);
             width: 80%;
             max-width: 800px;
@@ -135,7 +179,10 @@
             width: 100%;
         }
 
-        .label-text { font-weight: bold; font-size: 1.1rem; }
+        .label-text {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
 
         .input-capsule {
             background-color: var(--capsula-bg);
@@ -146,7 +193,9 @@
             outline: none;
         }
 
-        .event-name-input { width: 60%; }
+        .event-name-input {
+            width: 60%;
+        }
 
         .description-box {
             background-color: rgba(255, 255, 255, 0.1);
@@ -180,11 +229,17 @@
             gap: 15px;
         }
 
-        .small-input { width: 60px; text-align: center; }
-        .select-capsule { cursor: pointer; }
+        .small-input {
+            width: 60px;
+            text-align: center;
+        }
+
+        .select-capsule {
+            cursor: pointer;
+        }
 
         .btn-create {
-            background-color: #f3d4b1;
+            background-color: var(--cafe-botones);
             border: 2px solid var(--borde-negro);
             border-radius: 25px;
             padding: 10px 50px;
@@ -195,7 +250,10 @@
             margin: 0 auto;
         }
 
-        .btn-create:hover { box-shadow: 0 0 10px white; transform: scale(1.05); }
+        .btn-create:hover {
+            box-shadow: 0 0 10px white;
+            transform: scale(1.05);
+        }
 
         .mini-logo-aso {
             position: absolute;
@@ -204,61 +262,59 @@
             width: 55px;
             border-radius: 50%;
         }
-
     </style>
 </head>
+
 <body>
 
     <aside class="sidebar">
-        <img src="Img/Logo de equipo.jpeg" alt="Logo SIGAE" class="logo-sigae">
+        <img src="../Img/Logo de equipo.jpeg" alt="Logo SIGAE" class="logo-sigae">
         <nav class="nav-buttons">
             <a href="Inicio.html" class="btn-nav">Inicio</a>
-            <a href="Miembros.html" class="btn-nav">Miembros</a>
+            <a href="Miembros.html" class="btn-nav" style="box-shadow: 0 0 10px white;">Miembros</a>
             <a href="Administrador.html" class="btn-nav">Administradores</a>
-            <a href="Crea_Event.html" class="btn-nav" style="box-shadow: 0 0 10px white;">Eventos</a>
+            <a href="Crea_Event.html" class="btn-nav">Eventos</a>
             <a href="Crear_QR.html" class="btn-nav">QR</a>
             <a href="Lista_Asisten.html" class="btn-nav">Lista de asistencia</a>
             <a href="Voluntariado.html" class="btn-nav">Voluntariado</a>
         </nav>
-        <div class="logout-container">
-            <a href="Login.html" class="btn-nav" style="display: block;">Cerrar sesión</a>
+        <div class="logout-container" style="margin-top: auto; width: 85%; padding-bottom: 20px;">
+            <a href="../Login.html" class="btn-nav" style="display: block;">Cerrar sesión</a>
         </div>
     </aside>
 
     <div class="main-content">
         <header class="header">
-            <div class="user-info">
-                <strong>Nombre:</strong> Salazar Slytherin<br>
-                <strong>Correo:</strong> Sa_sly95_12@gamil.com
-            </div>
-
-            <div class="social-center">
-                <span style="font-weight: bold; font-size: 1.1rem;">Asociación Cadereyta</span>
-                <div class="social-icons">
+            <div class="user-info"><strong>Nombre:</strong> Roberto Juarez<br><strong>Correo:</strong>
+                Sa_sly95_12@gamil.com</div>
+            <div class="social-center" style="text-align: center;">
+                <span style="font-weight: bold; font-size: 25px;">Asociación Cadereyta</span>
+                <div class="social-icons" style="justify-content: center;">
                     <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
-
             <div class="header-right">
-                <img src="Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
-                <i class="fa-solid fa-gear settings-icon"></i>
+                <img src="../Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
+                <i class="fa-solid fa-gear" style="font-size: 28px;"></i>
             </div>
         </header>
 
-        <img src="Img/fime-logo-cel.png" alt="FIME Background" class="fime-bg-logo">
+        <img src="../Img/fime-logo-cel.png" alt="FIME Background" class="fime-bg-logo">
 
         <main class="event-container">
-            
+
             <section class="event-panel">
                 <div class="input-row">
                     <span class="label-text">Eventos:</span>
-                    <input type="text" id="event-name" class="input-capsule event-name-input" placeholder="Nombre del evento">
+                    <input type="text" id="event-name" class="input-capsule event-name-input"
+                        placeholder="Nombre del evento">
                 </div>
 
                 <div class="description-box">
                     <span class="label-text">Descripción del evento:</span>
-                    <textarea id="event-desc" class="description-textarea" placeholder="Escribe aquí los detalles del evento..."></textarea>
+                    <textarea id="event-desc" class="description-textarea"
+                        placeholder="Escribe aquí los detalles del evento..."></textarea>
                 </div>
 
                 <div class="controls-row">
@@ -287,10 +343,11 @@
 
                 <button class="btn-create" onclick="createEvent()">Crear</button>
 
-                <img src="Img/Logo de la Aso.jpeg" alt="Aso Logo" class="mini-logo-aso">
+                <img src="../Img/Logo de la Aso.jpeg" alt="Aso Logo" class="mini-logo-aso">
             </section>
 
         </main>
+
     </div>
 
     <script>
@@ -301,19 +358,20 @@
             const time = document.getElementById('event-time').value;
             const date = document.getElementById('event-date').value;
 
-            if(!name || !desc || !date) {
+            if (!name || !desc || !date) {
                 alert("Por favor, completa los campos de nombre, descripción y fecha.");
                 return;
             }
 
             console.log("Evento Creado:", { name, desc, points, time, date });
             alert("¡Evento '" + name + "' creado exitosamente!");
-            
+
             document.getElementById('event-name').value = '';
             document.getElementById('event-desc').value = '';
         }
-        
+
         document.getElementById('event-date').valueAsDate = new Date();
     </script>
 </body>
+
 </html>

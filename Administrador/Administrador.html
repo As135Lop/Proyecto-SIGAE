@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administradores - SIGAE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
             --verde-fondo: #8b907c;
             --verde-paneles: #8a9b6e;
             --cafe-botones: #8b5e3c;
             --borde-negro: #1a1a1a;
-            --capsula-bg: #adbca1;
+            --verde-cuadros-grandes: #5f6f4a;
+            --verde-cuadritos-nombres: #8b907c;
         }
 
         body {
@@ -25,6 +29,7 @@
             overflow: hidden;
         }
 
+        /* SIDEBAR */
         .sidebar {
             width: 220px;
             border-right: 2px solid var(--borde-negro);
@@ -33,33 +38,41 @@
             align-items: center;
             padding: 10px 0;
             background-color: var(--verde-paneles);
+            z-index: 10;
         }
 
-        .logo-sigae { width: 100px; margin-bottom: 20px; border-radius: 50%; }
+        .logo-sigae {
+            width: 100px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--borde-negro);
+        }
 
-        .nav-buttons { display: flex; flex-direction: column; gap: 12px; width: 85%; }
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 85%;
+        }
 
         .btn-nav {
             background-color: var(--cafe-botones);
             border: 2px solid var(--borde-negro);
-            padding: 8px;
-            font-family: 'Lora', serif;
+            padding: 10px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
             text-align: center;
             text-decoration: none;
             color: black;
+            transition: 0.3s;
         }
 
         .btn-nav:hover {
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-            filter: brightness(1.1);
-            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            transform: scale(1.05);
         }
 
-        .logout-container { margin-top: auto; width: 85%; padding-bottom: 20px; }
-
+        /* HEADER */
         .main-content {
             flex: 1;
             display: flex;
@@ -68,38 +81,46 @@
         }
 
         .header {
-            height: 110px;
+            height: 100px;
             border-bottom: 2px solid var(--borde-negro);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 0 25px;
             background-color: var(--verde-paneles);
+            z-index: 10;
         }
-
-        .social-center { text-align: center; flex: 1; }
 
         .social-icons {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            font-size: 28px;
-            margin-top: 5px;
+            gap: 20px;
+            font-size: 32px;
         }
 
-        .fa-whatsapp { color: #25D366; }
-        .fa-instagram { color: #E1306C; }
-
-        .logo-safime { height: 70px; }
-
-        .settings-icon { font-size: 25px; color: #333; cursor: default; }
-
-        .admin-container {
-            flex: 1;
+        .social-icons a {
+            background-color: white;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
             display: flex;
-            padding: 30px;
-            gap: 40px;
-            z-index: 1;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--borde-negro);
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .fa-whatsapp {
+            color: #25D366;
+        }
+
+        .fa-instagram {
+            color: #E1306C;
+        }
+
+        .logo-safime {
+            height: 220px;
+            width: auto;
         }
 
         .fime-bg-logo {
@@ -107,186 +128,271 @@
             left: 50%;
             top: 55%;
             transform: translate(-50%, -50%);
-            width: 500px;
-            opacity: 0.1;
+            width: 700px;
+            opacity: 0.5;
             z-index: 0;
             pointer-events: none;
         }
 
+        /* PANELES */
+        .members-container {
+            flex: 1;
+            display: flex;
+            padding: 30px;
+            gap: 30px;
+            z-index: 1;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
         .panel {
-            background-color: rgba(138, 155, 110, 0.95);
+            background-color: var(--verde-cuadros-grandes);
             border: 2px solid var(--borde-negro);
             padding: 20px;
             border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
         }
 
-        .left-panel { flex: 1.2; }
-        .right-panel { flex: 1; height: fit-content; display: flex; flex-direction: column; gap: 20px; }
+        .left-panel {
+            width: 550px;
+            height: 480px;
+        }
 
-        .admin-row {
-            display: grid;
-            grid-template-columns: 45px 1fr 45px;
-            gap: 10px;
-            margin-bottom: 12px;
-            align-items: center;
+        .right-panel {
+            width: 400px;
+            height: 480px;
+            justify-content: space-between;
+        }
+
+        /* LISTA */
+        .scroll-list {
+            overflow-y: auto;
+            padding-right: 10px;
+            flex: 1;
+            max-height: 350px;
+        }
+
+        .scroll-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scroll-list::-webkit-scrollbar-thumb {
+            background: var(--cafe-botones);
+            border-radius: 10px;
+            border: 1px solid black;
         }
 
         .capsule {
-            background-color: var(--capsula-bg);
+            background-color: var(--verde-cuadritos-nombres);
             border: 2px solid var(--borde-negro);
-            border-radius: 20px;
+            border-radius: 25px;
             padding: 8px;
             text-align: center;
-        }
-
-        .select-circle {
-            width: 30px;
-            height: 30px;
-            border: 2px solid var(--borde-negro);
-            border-radius: 50%;
-            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            color: black;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: auto;
-            transition: 0.2s;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .select-circle.active { background-color: var(--borde-negro); box-shadow: inset 0 0 0 4px var(--capsula-bg); }
-
-        .form-group {
-            display: grid;
-            grid-template-columns: 120px 1fr;
+        .id-circle {
+            width: 40px;
+            height: 40px;
+            border: 2px solid black;
+            border-radius: 50%;
+            display: flex;
             align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background-color: var(--verde-cuadritos-nombres);
+        }
+
+        .member-row {
+            display: grid;
+            grid-template-columns: 50px 1fr 50px;
             gap: 10px;
             margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 50px 1fr 50px;
+            gap: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        /* RADIO BUTTON PERSONALIZADO */
+        .radio-btn {
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            accent-color: var(--borde-negro);
+        }
+
+        /* INPUTS DERECHOS */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .label-text {
+            color: black;
+            font-weight: bold;
+            width: 100px;
+            text-align: right;
         }
 
         .input-capsule {
-            background-color: var(--capsula-bg);
-            border: 2px solid var(--borde-negro);
-            border-radius: 20px;
-            padding: 8px 15px;
-            width: 100%;
-            box-sizing: border-box;
+            flex: 1;
+            border: 2px solid black;
+            border-radius: 25px;
+            padding: 8px;
+            text-align: center;
+            font-family: 'Lora';
+            font-weight: bold;
             outline: none;
-            font-family: 'Lora', serif;
+            background: white;
         }
 
-        .btn-action {
-            padding: 10px 30px;
+        .btn-crear {
+            background-color: #f3d4b1;
+            padding: 8px 30px;
             border-radius: 20px;
-            border: 2px solid var(--borde-negro);
+            border: 2px solid black;
             font-weight: bold;
             cursor: pointer;
-            font-family: 'Lora', serif;
-            transition: 0.3s;
-            margin: 10px auto;
-            display: block;
+            align-self: center;
+            margin-top: 10px;
         }
 
-        .btn-create { background-color: #f3d4b1; width: 150px; }
-        .btn-delete { background-color: #ff0000; color: white; width: 180px; }
-        .btn-action:hover { box-shadow: 0 0 10px white; }
+        .delete-section {
+            border-top: 2px solid black;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
 
-        .divider { border: 1px solid var(--borde-negro); margin: 10px 0; }
+        .btn-delete {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 20px;
+            border: 2px solid black;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-        .mini-logo-aso { width: 55px; border-radius: 50%; align-self: flex-end; }
-
+        .mini-logo-aso {
+            width: 70px;
+            border-radius: 50%;
+            border: 1px solid black;
+            align-self: flex-end;
+        }
     </style>
 </head>
+
 <body>
 
     <aside class="sidebar">
-        <img src="Img/Logo de equipo.jpeg" alt="Logo SIGAE" class="logo-sigae">
+        <img src="../Img/Logo de equipo.jpeg" alt="Logo SIGAE" class="logo-sigae">
         <nav class="nav-buttons">
             <a href="Inicio.html" class="btn-nav">Inicio</a>
             <a href="Miembros.html" class="btn-nav">Miembros</a>
             <a href="Administrador.html" class="btn-nav" style="box-shadow: 0 0 10px white;">Administradores</a>
             <a href="Crea_Event.html" class="btn-nav">Eventos</a>
-            <a href="Crea_Event.html" class="btn-nav">QR</a>
+            <a href="Crear_QR.html" class="btn-nav">QR</a>
             <a href="Lista_Asisten.html" class="btn-nav">Lista de asistencia</a>
             <a href="Voluntariado.html" class="btn-nav">Voluntariado</a>
         </nav>
-        <div class="logout-container">
-            <a href="Login.html" class="btn-nav" style="display: block;">Cerrar sesión</a>
+        <div class="logout-container" style="margin-top: auto; width: 85%; padding-bottom: 20px;">
+            <a href="../Login.html" class="btn-nav" style="display: block;">Cerrar sesión</a>
         </div>
     </aside>
 
     <div class="main-content">
         <header class="header">
-            <div class="user-info">
-                <strong>Nombre:</strong> Roberto Juarez<br>
-                <strong>Correo:</strong> Rob_Arez74@gamil.com
-            </div>
-
-            <div class="social-center">
-                <span style="font-weight: bold; font-size: 1.1rem;">Asociación Cadereyta</span>
-                <div class="social-icons">
+            <div class="user-info"><strong>Nombre:</strong> Roberto Juarez<br><strong>Correo:</strong>
+                Sa_sly95_12@gamil.com</div>
+            <div class="social-center" style="text-align: center;">
+                <span style="font-weight: bold; font-size: 25px;">Asociación Cadereyta</span>
+                <div class="social-icons" style="justify-content: center;">
                     <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
-
-            <div class="header-right" style="display: flex; align-items: center; gap: 15px;">
-                <img src="Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
-                <i class="fa-solid fa-gear settings-icon"></i>
+            <div class="header-right">
+                <img src="../Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
+                <i class="fa-solid fa-gear" style="font-size: 28px;"></i>
             </div>
         </header>
 
-        <img src="Img/fime-logo-cel.png" alt="FIME Background" class="fime-bg-logo">
+        <img src="../Img/fime-logo-cel.png" alt="FIME Background" class="fime-bg-logo">
 
-        <main class="admin-container">
-            
+        <main class="members-container">
             <section class="panel left-panel">
-                <h3 style="text-align: center; margin-top: 0;">Administradores</h3>
-                <div class="admin-row" style="font-weight: bold; text-align: center;">
-                    <span>ID</span><span>Nombre:</span><span></span>
+                <h3 style="text-align: center; margin-top: 0; color: white; font-size: 24px;">Administradores</h3>
+                <div class="table-header">
+                    <div class="id-circle" style="background: #adbca1;">ID</div>
+                    <div class="capsule" style="background: #adbca1;">Nombre:</div>
+                    <div></div>
                 </div>
-                <div id="admin-list">
-                    </div>
+                <div id="admin-list" class="scroll-list">
+                </div>
             </section>
 
             <section class="panel right-panel">
-                <div id="create-section">
-                    <div class="form-group">
-                        <label>Administrador:</label>
+                <div class="input-group">
+                    <div class="input-row">
+                        <span class="label-text">Administrador:</span>
                         <input type="text" id="new-name" class="input-capsule">
                     </div>
-                    <div class="form-group">
-                        <label>Correo:</label>
+                    <div class="input-row">
+                        <span class="label-text">Correo:</span>
                         <input type="email" id="new-email" class="input-capsule">
                     </div>
-                    <div class="form-group">
-                        <label>Contraseña:</label>
-                        <input type="password" id="new-pass" class="input-capsule">
+                    <div class="input-row">
+                        <span class="label-text">Contraseña:</span>
+                        <input type="password" id="new-pass" class="input-capsule" placeholder="••••••••">
                     </div>
-                    <button class="btn-action btn-create" onclick="createAdmin()">Crear</button>
+                    <button class="btn-crear" onclick="createAdmin()">Crear</button>
                 </div>
 
-                <div class="divider"></div>
-
-                <div id="delete-section" style="text-align: center;">
-                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 10px;">
-                        <span>ID:</span>
-                        <div class="select-circle" id="id-display" style="cursor: default;">-</div>
+                <div class="delete-section">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-weight: bold; color: white;">ID:</span>
+                        <div class="id-circle" id="selected-id-display">-</div>
                     </div>
-                    <button class="btn-action btn-delete" onclick="safeDelete()">Eliminar Cuenta</button>
+                    <button class="btn-delete" onclick="confirmDelete()">Eliminar Cuenta</button>
                 </div>
 
-                <img src="Img/Logo de la Aso.jpeg" alt="Aso Logo" class="mini-logo-aso">
+                <img src="../Img/Logo de la Aso.jpeg" alt="Aso Logo" class="mini-logo-aso">
             </section>
-
         </main>
     </div>
 
     <script>
-        let admins = [
-            { id: 1, name: "Roberto Juarez" },
-            { id: 2, name: "Espinosa Uriel" },
-            { id: 3, name: "Daniel Gustavo" },
-            { id: 5, name: "Ricardo Homar" },
-            { id: 6, name: "Hector Ricardo" }
+        let adminData = [
+            { id: 1, name: "Roberto Juarez", email: "Sa_sly95_12@gamil.com" },
+            { id: 2, name: "Espinosa Uriel", email: "uri@gmail.com" },
+            { id: 3, name: "Daniel Gustavo", email: "dan@gmail.com" },
+            { id: 5, name: "Ricardo Homar", email: "ric@gmail.com" },
+            { id: 6, name: "Hector Ricardo", email: "hec@gmail.com" }
         ];
 
         let selectedAdminId = null;
@@ -294,14 +400,13 @@
         function renderAdmins() {
             const list = document.getElementById('admin-list');
             list.innerHTML = '';
-            admins.forEach(admin => {
+            adminData.forEach(admin => {
                 const row = document.createElement('div');
-                row.className = 'admin-row';
+                row.className = 'member-row';
                 row.innerHTML = `
-                    <div class="capsule">${admin.id}</div>
+                    <div class="id-circle">${admin.id}</div>
                     <div class="capsule">${admin.name}</div>
-                    <div class="select-circle ${selectedAdminId === admin.id ? 'active' : ''}" 
-                         onclick="selectAdmin(${admin.id})"></div>
+                    <input type="radio" name="adminSelect" class="radio-btn" onclick="selectAdmin(${admin.id})">
                 `;
                 list.appendChild(row);
             });
@@ -309,45 +414,47 @@
 
         function selectAdmin(id) {
             selectedAdminId = id;
-            document.getElementById('id-display').innerText = id;
-            renderAdmins();
+            document.getElementById('selected-id-display').innerText = id;
         }
 
         function createAdmin() {
             const name = document.getElementById('new-name').value;
             const email = document.getElementById('new-email').value;
-            const pass = document.getElementById('new-pass').value;
+            if (!name || !email) return alert("Llena los campos básicos");
 
-            if(!name || !email || !pass) return alert("Completa todos los campos");
+            const newId = adminData.length > 0 ? Math.max(...adminData.map(a => a.id)) + 1 : 1;
+            adminData.push({ id: newId, name: name, email: email });
 
-            const newId = admins.length > 0 ? Math.max(...admins.map(a => a.id)) + 1 : 1;
-            admins.push({ id: newId, name: name });
-            
+            // Limpiar inputs
             document.getElementById('new-name').value = '';
             document.getElementById('new-email').value = '';
             document.getElementById('new-pass').value = '';
-            
+
             renderAdmins();
-            alert("Administrador creado con éxito");
+            alert("Administrador creado");
         }
 
-        function safeDelete() {
-            if(!selectedAdminId) return alert("Selecciona un administrador de la lista");
+        function confirmDelete() {
+            if (!selectedAdminId) return alert("Por favor, selecciona un administrador usando el botón al lado de su nombre.");
 
-            const confirmPass = prompt("Para eliminar esta cuenta, por favor ingresa tu contraseña de Administrador:");
-            
-            if (confirmPass === "1234") { 
-                admins = admins.filter(a => a.id !== selectedAdminId);
-                selectedAdminId = null;
-                document.getElementById('id-display').innerText = "-";
-                renderAdmins();
-                alert("Cuenta eliminada correctamente.");
-            } else if (confirmPass !== null) {
-                alert("Contraseña incorrecta. No tienes permiso para borrar esta cuenta.");
+            const pass = prompt("Para eliminar esta cuenta, por favor ingresa tu contraseña de administrador:");
+
+            if (pass !== null) {
+                if (pass.length >= 4) { // Aquí iría la validación real con la DB
+                    adminData = adminData.filter(a => a.id !== selectedAdminId);
+                    selectedAdminId = null;
+                    document.getElementById('selected-id-display').innerText = "-";
+                    renderAdmins();
+                    alert("Cuenta eliminada correctamente.");
+                } else {
+                    alert("Contraseña incorrecta.");
+                }
             }
         }
 
+        // Carga inicial
         renderAdmins();
     </script>
 </body>
+
 </html>
