@@ -1,0 +1,207 @@
+       :root {
+            --verde-fondo: #8b907c;
+            --verde-paneles: #8a9b6e;
+            --cafe-botones: #8b5e3c;
+            --borde-negro: #1a1a1a;
+            --panel-bg: rgba(138, 155, 110, 0.93);
+            --evento-bg: #adbca1;
+            --check-color: #6abf5e;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Lora', serif;
+            background-color: var(--verde-fondo);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            width: 175px;
+            flex-shrink: 0;
+            border-right: 2px solid var(--borde-negro);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            background-color: var(--verde-paneles);
+        }
+
+        .logo-sigae { width: 90px; margin-bottom: 18px; border-radius: 50%; }
+
+        .nav-buttons { display: flex; flex-direction: column; gap: 10px; width: 85%; }
+
+        .btn-nav {
+            background-color: var(--cafe-botones);
+            border: 2px solid var(--borde-negro);
+            padding: 9px 6px;
+            font-family: 'Lora', serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            color: black;
+            font-size: 13px;
+            display: block;
+        }
+
+        .btn-nav:hover, .btn-nav.active {
+            box-shadow: 0 0 15px rgba(255,255,255,0.8);
+            filter: brightness(1.1);
+            transform: scale(1.02);
+        }
+
+        .logout-container { margin-top: auto; width: 85%; padding-bottom: 18px; }
+
+        /* ── MAIN ── */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            height: 105px;
+            border-bottom: 2px solid var(--borde-negro);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background-color: var(--verde-paneles);
+            flex-shrink: 0;
+        }
+
+        .user-info { font-size: 14px; line-height: 1.6; }
+
+        .social-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .social-center span { font-weight: bold; font-size: 1.15rem; }
+        .social-icons { display: flex; gap: 14px; font-size: 28px; }
+        .social-icons a { color: inherit; text-decoration: none; transition: transform 0.2s; }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .fa-whatsapp { color: #25D366; }
+        .fa-instagram { color: #E1306C; }
+
+        .header-right { display: flex; align-items: center; gap: 16px; }
+        .logo-safime { height: 170px; }
+        .settings-icon { font-size: 26px; color: #333; cursor: pointer; }
+
+        /* ── CONTENT ── */
+        .content-area {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .fime-bg-logo {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 520px;
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ── PANEL PRINCIPAL ── */
+        .lista-panel {
+            position: relative;
+            z-index: 1;
+            background-color: var(--panel-bg);
+            border: 2px solid var(--borde-negro);
+            border-radius: 6px;
+            width: 80%;
+            max-width: 920px;
+            padding: 28px 30px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .lista-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* ── GRID DE EVENTOS ── */
+        .eventos-grid {
+            border: 2px solid var(--borde-negro);
+            background-color: rgba(120, 140, 95, 0.5);
+            border-radius: 4px;
+            padding: 22px 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 40px;
+            row-gap: 18px;
+        }
+
+        /* Cada fila = cápsula + círculo check */
+        .evento-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .evento-capsule {
+            flex: 1;
+            background-color: var(--evento-bg);
+            border: 2px solid var(--borde-negro);
+            border-radius: 25px;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        /* Círculo check */
+        .check-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2.5px solid var(--borde-negro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1rem;
+            cursor: default;
+            transition: background 0.2s;
+        }
+
+        .check-circle.asistido {
+            background-color: var(--check-color);
+            color: white;
+        }
+
+        .check-circle.no-asistido {
+            background-color: transparent;
+            color: transparent;
+        }
+
+        /* Logo mini */
+        .mini-logo-aso {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            border: 2px solid var(--borde-negro);
+            object-fit: cover;
+        }

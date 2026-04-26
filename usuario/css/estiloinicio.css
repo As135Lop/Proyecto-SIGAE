@@ -1,0 +1,191 @@
+       :root {
+            --verde-fondo-principal: #8b907c;
+            --verde-solido-paneles: #8a9b6e;
+            --cafe-botones: #8b5e3c;
+            --borde-negro: #1a1a1a;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Lora', serif;
+            background-color: var(--verde-fondo-principal);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 220px;
+            border-right: 2px solid var(--borde-negro);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            background-color: var(--verde-solido-paneles);
+            z-index: 10;
+        }
+
+        .logo-sigae {
+            width: 100px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 85%;
+        }
+
+        .btn-nav {
+            background-color: var(--cafe-botones);
+            border: 2px solid var(--borde-negro);
+            padding: 10px;
+            font-family: 'Lora', serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            color: black;
+            font-size: 14px;
+        }
+
+        .btn-nav:hover {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+            filter: brightness(1.2);
+            transform: scale(1.05);
+        }
+
+        .logout-container {
+            margin-top: auto;
+            width: 85%;
+            padding-bottom: 20px;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .header {
+            height: 100px;
+            border-bottom: 2px solid var(--borde-negro);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            background-color: var(--verde-solido-paneles);
+            z-index: 10;
+        }
+
+        .user-info { font-size: 14px; line-height: 1.4; }
+
+        .social-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .social-center span {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 26px;
+        }
+
+        .social-icons a { color: inherit; text-decoration: none; transition: transform 0.2s; }
+        .social-icons a:hover { transform: translateY(-3px); }
+        .fa-whatsapp { color: #25D366; }
+        .fa-instagram { color: #E1306C; }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-safime { height: 170px; }
+        .settings-icon { font-size: 28px; cursor: pointer; transition: color 0.3s; }
+        .settings-icon:hover { color: #444; }
+
+        .welcome-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background-color: var(--verde-fondo-principal);
+        }
+
+        .fime-bg-logo {
+            position: absolute;
+            width: 600px;
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .welcome-box {
+            background-color: var(--verde-fondo-principal);
+            border: 2px solid var(--borde-negro);
+            width: 60%;
+            padding: 40px;
+            z-index: 1;
+            position: relative;
+            box-shadow: 12px 12px 0px rgba(0,0,0,0.15);
+        }
+
+        .welcome-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .welcome-title { margin: 0; font-size: 28px; font-weight: bold; }
+
+        .btn-edit {
+            color: #5d4037;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 4px 10px;
+            transition: all 0.2s;
+        }
+
+        .btn-edit:hover {
+            background-color: #5d4037;
+            color: white;
+        }
+
+        .welcome-text {
+            line-height: 1.8;
+            font-size: 16px;
+            font-style: italic;
+            outline: none;
+            padding: 10px;
+            min-height: 50px;
+        }
+
+        .box-mini-logo {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 1px solid var(--borde-negro);
+            object-fit: cover;
+        }
