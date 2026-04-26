@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restablecer Contraseña - SIGAE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Lora', serif;
+            background-color: #8b907c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .fime-logo {
+            position: absolute;
+            width: 350px;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        .logo-left { 
+            left: -50px; 
+            margin-top: 250px;
+        }
+        .logo-right { 
+            right: -50px; 
+            margin-top: -250px;
+        }
+
+        .main-container {
+            background-color: #8a9b6e;
+            border: 2px solid #000;
+            border-radius: 40px;
+            padding: 40px 30px;
+            width: 360px;
+            text-align: center;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .bear-logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 0;
+            box-sizing: border-box;
+            font-size: 16px;
+            font-family: 'Lora', serif;
+        }
+
+        .btn-reset {
+            background-color: #d9b99b;
+            border: 1px solid #000;
+            padding: 12px 20px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            width: 50%;
+            font-family: 'Lora', serif;
+            display: inline-block;
+            text-decoration: none;
+            color: #000;
+            margin-top: 10px;
+            line-height: 1.2;
+        }
+
+        .btn-reset:hover {
+            background-color: #c7a588;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="Img/fime-logo-cel.png" alt="FIME Izq" class="fime-logo logo-left">
+    <img src="Img/fime-logo-cel.png" alt="FIME Der" class="fime-logo logo-right">
+
+    <div class="main-container">
+        <h1>SIGAE</h1>
+        
+        <img src="Img/Logo de equipo.jpeg" alt="Logo Oso" class="bear-logo">
+
+        <form id="resetForm">
+            <div class="input-group">
+                <label for="newPass">Nueva contraseña:</label>
+                <input type="password" id="newPass" required>
+            </div>
+
+            <div class="input-group">
+                <label for="confirmPass">Confirmar contraseña:</label>
+                <input type="password" id="confirmPass" required>
+            </div>
+
+            <a href="Login.html" class="btn-reset" id="resetBtn">
+                Restablecer<br>Contraseña
+            </a>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('resetBtn').addEventListener('click', function(e) {
+            const pass = document.getElementById('newPass').value;
+            const confirm = document.getElementById('confirmPass').value;
+
+            if (pass === "" || confirm === "") {
+                e.preventDefault();
+                alert("Por favor llena ambos campos.");
+            } else if (pass !== confirm) {
+                e.preventDefault();
+                alert("Las contraseñas no coinciden. Inténtalo de nuevo.");
+            } else {
+                alert("¡Contraseña restablecida con éxito!");
+            }
+        });
+    </script>
+
+</body>
+</html>

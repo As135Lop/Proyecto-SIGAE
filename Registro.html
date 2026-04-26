@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - SIGAE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Lora', serif;
+            background-color: #8b907c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .fime-logo {
+            position: absolute;
+            width: 350px;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        .logo-left { 
+            left: -50px; 
+            margin-top: 250px;
+        }
+        .logo-right { 
+            right: -50px; 
+            margin-top: -250px;
+        }
+
+        .register-container {
+            background-color: #8a9b6e;
+            border: 2px solid #000;
+            border-radius: 40px;
+            padding: 25px 35px;
+            width: 360px;
+            text-align: center;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .bear-logo {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 0;
+            box-sizing: border-box;
+            font-size: 15px;
+            font-family: 'Lora', serif;
+        }
+
+        .btn-register {
+            background-color: #d9b99b;
+            border: 1px solid #000;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            width: 45%;
+            font-family: 'Lora', serif;
+            display: inline-block;
+            text-decoration: none;
+            color: #000;
+            margin-top: 15px;
+        }
+
+        .btn-register:hover {
+            background-color: #c7a588;
+        }
+
+        .footer-text {
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .link-blue {
+            color: #0000ee;
+            text-decoration: none;
+        }
+
+        .link-blue:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="Img/fime-logo-cel.png" alt="Logo FIME" class="fime-logo logo-left">
+    <img src="Img/fime-logo-cel.png" alt="Logo FIME" class="fime-logo logo-right">
+
+    <div class="register-container">
+        <h1>SIGAE</h1>
+        
+        <img src="Img/Logo de equipo.jpeg" alt="Logo Oso" class="bear-logo">
+
+        <form id="regForm">
+            <div class="input-group">
+                <label for="regNombre">Nombre:</label>
+                <input type="text" id="regNombre" required>
+            </div>
+
+            <div class="input-group">
+                <label for="regCorreo">Correo</label>
+                <input type="email" id="regCorreo" required>
+            </div>
+
+            <div class="input-group">
+                <label for="regPass">Contraseña:</label>
+                <input type="password" id="regPass" required>
+            </div>
+
+            <div class="input-group">
+                <label for="regConfirm">verificar contraseña:</label>
+                <input type="password" id="regConfirm" required>
+            </div>
+
+            <a href="Login.html" class="btn-register" id="regBtn">Registrarse</a>
+        </form>
+
+        <div class="footer-text">
+            Ya tienes una cuenta? <a href="Login.html" class="link-blue">inicia sesión</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('regBtn').addEventListener('click', function(e) {
+            const nombre = document.getElementById('regNombre').value;
+            const correo = document.getElementById('regCorreo').value;
+            const pass = document.getElementById('regPass').value;
+            const confirm = document.getElementById('regConfirm').value;
+
+            if (!nombre || !correo || !pass || !confirm) {
+                e.preventDefault();
+                alert("Por favor, completa todos los campos.");
+            } else if (pass !== confirm) {
+                e.preventDefault();
+                alert("Las contraseñas no coinciden.");
+            } else {
+                alert("Registro exitoso para: " + nombre);
+            }
+        });
+    </script>
+
+</body>
+</html>

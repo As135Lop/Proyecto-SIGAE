@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miembros - SIGAE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --verde-fondo: #8b907c;
+            --verde-paneles: #8a9b6e;
+            --cafe-botones: #8b5e3c;
+            --borde-negro: #1a1a1a;
+            --capsula-bg: #adbca1;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Lora', serif;
+            background-color: var(--verde-fondo);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 220px;
+            border-right: 2px solid var(--borde-negro);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            background-color: var(--verde-paneles);
+        }
+
+        .logo-sigae {
+            width: 100px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 85%;
+        }
+
+        .btn-nav {
+            background-color: var(--cafe-botones);
+            border: 2px solid var(--borde-negro);
+            padding: 8px;
+            font-family: 'Lora', serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            color: black;
+        }
+
+        .btn-nav:hover {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            filter: brightness(1.1);
+            transform: scale(1.02);
+        }
+
+        .logout-container {
+            margin-top: auto;
+            width: 85%;
+            padding-bottom: 20px;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .header {
+            height: 110px;
+            border-bottom: 2px solid var(--borde-negro);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background-color: var(--verde-paneles);
+        }
+
+        .social-center {
+            text-align: center;
+            flex: 1;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-size: 28px;
+            margin-top: 5px;
+        }
+
+        .fa-whatsapp { color: #25D366; }
+        .fa-instagram { color: #E1306C; }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-safime { height: 220px; }
+        .settings-icon { font-size: 25px; color: #333; cursor: default; }
+
+        .members-container {
+            flex: 1;
+            display: flex;
+            padding: 30px;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .fime-bg-logo {
+            position: absolute;
+            left: 50%;
+            top: 55%;
+            transform: translate(-50%, -50%);
+            width: 450px;
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .panel {
+            background-color: rgba(138, 155, 110, 0.9);
+            border: 2px solid var(--borde-negro);
+            padding: 20px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .left-panel { flex: 1.5; }
+        .right-panel { flex: 1; height: fit-content; gap: 20px; }
+
+        .capsule {
+            background-color: var(--capsula-bg);
+            border: 2px solid var(--borde-negro);
+            border-radius: 25px;
+            padding: 8px 15px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .member-row {
+            display: grid;
+            grid-template-columns: 50px 1fr 100px;
+            gap: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .member-row:hover .capsule {
+            background-color: #c5d4b8;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 50px 1fr 100px 40px;
+            gap: 10px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .filter-btn {
+            cursor: pointer;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+        .filter-btn:hover { transform: scale(1.2); color: white; }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--capsula-bg);
+            border: 2px solid var(--borde-negro);
+            border-radius: 25px;
+            padding: 5px 15px;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-family: 'Lora', serif;
+        }
+
+        .action-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn-action {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 2px solid var(--borde-negro);
+            font-family: 'Lora', serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-edit-save { background-color: #f3d4b1; }
+        .btn-delete { background-color: #ff4d4d; color: white; }
+        .btn-action:hover { box-shadow: 0 0 10px white; }
+
+        .mini-logo-aso {
+            width: 60px;
+            border-radius: 50%;
+            align-self: flex-end;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <img src="Img/Logo de equipo.jpeg" alt="Logo SIGAE" class="logo-sigae">
+        
+        <nav class="nav-buttons">
+            <a href="Inicio.html" class="btn-nav">Inicio</a>
+            <a href="Miembros.html" class="btn-nav" style="box-shadow: 0 0 10px white;">Miembros</a>
+            <a href="Administrador.html" class="btn-nav">Administradores</a>
+            <a href="Crea_Event.html" class="btn-nav">Eventos</a>
+            <a href="Crear_QR.html" class="btn-nav">QR</a>
+            <a href="Lista_Asisten.html" class="btn-nav">Lista de asistencia</a>
+            <a href="Voluntariado.html" class="btn-nav">Voluntariado</a>
+        </nav>
+
+        <div class="logout-container">
+            <a href="Login.html" class="btn-nav" style="display: block;">Cerrar sesión</a>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <header class="header">
+            <div class="user-info">
+                <strong>Nombre:</strong> Roberto Juarez<br>
+                <strong>Correo:</strong> Sa_sly95_12@gamil.com
+            </div>
+
+            <div class="social-center">
+                <span style="font-weight: bold; font-size: 1.2rem;">Asociación Cadereyta</span>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <img src="Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
+                <i class="fa-solid fa-gear settings-icon"></i>
+            </div>
+        </header>
+
+        <img src="Img/fime-logo-cel.png" alt="FIME Background" class="fime-bg-logo">
+
+        <main class="members-container">
+            
+            <section class="panel left-panel">
+                <h3 style="text-align: center; margin-top: 0;">Miembros</h3>
+                <div class="table-header">
+                    <span>ID</span>
+                    <span>Nombre:</span>
+                    <span>Puntos:</span>
+                    <i class="fa-solid fa-filter filter-btn" title="Ordenar por puntos" onclick="sortByPoints()"></i>
+                </div>
+                
+                <div id="members-list">
+                    </div>
+            </section>
+
+            <section class="panel right-panel">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar ID o Nombre" onkeyup="filterMembers()">
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div style="display: grid; grid-template-columns: 50px 1fr 100px; gap: 10px; font-weight: bold; text-align: center;">
+                        <span>ID</span><span>Nombre:</span><span>Puntos:</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 50px 1fr 100px; gap: 10px;">
+                        <div class="capsule" id="edit-id">-</div>
+                        <input type="text" class="capsule" id="edit-name" placeholder="...">
+                        <input type="number" class="capsule" id="edit-points" placeholder="0">
+                    </div>
+                </div>
+
+                <div class="action-btns">
+                    <button class="btn-action btn-edit-save">Editar</button>
+                    <button class="btn-action btn-edit-save" onclick="saveChanges()">Guardar</button>
+                    <button class="btn-action btn-delete" onclick="deleteAccount()">Eliminar Cuenta</button>
+                </div>
+
+                <img src="Img/Logo de la Aso.jpeg" alt="Aso Logo" class="mini-logo-aso">
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        let membersData = [
+            { id: 1, name: "Salazar Slytherin", points: 300 },
+            { id: 2, name: "Pedro picapiedra", points: 256 },
+            { id: 3, name: "Daniel Gustavo", points: 250 },
+            { id: 4, name: "Malcom Wilkenson", points: 220 },
+            { id: 5, name: "Ricardo Homar", points: 171 },
+            { id: 6, name: "Hector Ricardo", points: 85 }
+        ];
+
+        let selectedId = null;
+
+        function renderList(data) {
+            const listContainer = document.getElementById('members-list');
+            listContainer.innerHTML = '';
+            
+            data.forEach(m => {
+                const row = document.createElement('div');
+                row.className = 'member-row';
+                row.onclick = () => selectMember(m);
+                row.innerHTML = `
+                    <div class="capsule">${m.id}</div>
+                    <div class="capsule">${m.name}</div>
+                    <div class="capsule">${m.points}</div>
+                `;
+                listContainer.appendChild(row);
+            });
+        }
+
+        function selectMember(member) {
+            selectedId = member.id;
+            document.getElementById('edit-id').innerText = member.id;
+            document.getElementById('edit-name').value = member.name;
+            document.getElementById('edit-points').value = member.points;
+        }
+
+        function filterMembers() {
+            const val = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = membersData.filter(m => 
+                m.name.toLowerCase().includes(val) || m.id.toString().includes(val)
+            );
+            renderList(filtered);
+        }
+
+        function sortByPoints() {
+            membersData.sort((a, b) => b.points - a.points);
+            renderList(membersData);
+        }
+
+        function saveChanges() {
+            if(!selectedId) return alert("Selecciona un miembro");
+            const index = membersData.findIndex(m => m.id === selectedId);
+            membersData[index].name = document.getElementById('edit-name').value;
+            membersData[index].points = parseInt(document.getElementById('edit-points').value);
+            renderList(membersData);
+            alert("Datos actualizados");
+        }
+
+        function deleteAccount() {
+            if(!selectedId) return alert("Selecciona un miembro");
+            if(confirm("¿Seguro que deseas eliminar esta cuenta?")) {
+                membersData = membersData.filter(m => m.id !== selectedId);
+                selectedId = null;
+                document.getElementById('edit-id').innerText = "-";
+                document.getElementById('edit-name').value = "";
+                document.getElementById('edit-points').value = "";
+                renderList(membersData);
+            }
+        }
+
+        renderList(membersData);
+    </script>
+</body>
+</html>
