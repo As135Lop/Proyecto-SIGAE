@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generar QR - SIGAE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -12,7 +14,9 @@
             --verde-paneles: #8a9b6e;
             --cafe-botones: #8b5e3c;
             --borde-negro: #1a1a1a;
-            --capsula-bg: #adbca1;
+            --verde-cuadros-grandes: #5f6f4a;
+            --verde-cuadritos-nombres: #8b907c;
+            --beige-botones: #f3d4b1;
         }
 
         body {
@@ -25,6 +29,7 @@
             overflow: hidden;
         }
 
+        /* --- SIDEBAR --- */
         .sidebar {
             width: 220px;
             border-right: 2px solid var(--borde-negro);
@@ -33,34 +38,42 @@
             align-items: center;
             padding: 10px 0;
             background-color: var(--verde-paneles);
+            z-index: 10;
         }
 
-        .logo-sigae { width: 100px; margin-bottom: 20px; border-radius: 50%; }
+        .logo-sigae {
+            width: 100px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--borde-negro);
+        }
 
-        .nav-buttons { display: flex; flex-direction: column; gap: 12px; width: 85%; }
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 85%;
+        }
 
         .btn-nav {
             background-color: var(--cafe-botones);
             border: 2px solid var(--borde-negro);
-            padding: 8px;
-            font-family: 'Lora', serif;
+            padding: 10px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
             text-align: center;
             text-decoration: none;
             color: black;
+            transition: 0.3s;
         }
 
         .btn-nav:hover {
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-            filter: brightness(1.1);
-            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            transform: scale(1.05);
         }
 
-        .logout-container { margin-top: auto; width: 85%; padding-bottom: 20px; }
-
-        .main-content {
+        /* --- HEADER --- */
+        .main-wrapper {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -68,30 +81,57 @@
         }
 
         .header {
-            height: 110px;
+            height: 100px;
             border-bottom: 2px solid var(--borde-negro);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 0 25px;
             background-color: var(--verde-paneles);
+            z-index: 10;
         }
 
-        .social-center { text-align: center; flex: 1; }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-safime {
+            height: 220px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .fa-gear {
+            font-size: 28px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .fa-gear:hover {
+            transform: rotate(90deg);
+        }
 
         .social-icons {
             display: flex;
-            justify-content: center;
             gap: 15px;
-            font-size: 28px;
-            margin-top: 5px;
+            font-size: 24px;
         }
 
-        .fa-whatsapp { color: #25D366; }
-        .fa-instagram { color: #E1306C; }
+        .social-icons a {
+            background-color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--borde-negro);
+            text-decoration: none;
+        }
 
-        .logo-safime { height: 75px; }
-
+        /* --- CONTENIDO CENTRAL (QR) --- */
         .qr-container {
             flex: 1;
             display: flex;
@@ -99,6 +139,7 @@
             align-items: center;
             padding: 20px;
             z-index: 1;
+            position: relative;
         }
 
         .fime-bg-logo {
@@ -106,123 +147,159 @@
             left: 50%;
             top: 55%;
             transform: translate(-50%, -50%);
-            width: 500px;
-            opacity: 0.1;
+            width: 700px;
+            opacity: 0.3;
             z-index: 0;
             pointer-events: none;
         }
 
-        .qr-panel {
-            background-color: rgba(138, 155, 110, 0.95);
+        .qr-box {
+            background-color: var(--verde-paneles);
             border: 2px solid var(--borde-negro);
-            width: 85%;
-            max-width: 900px;
-            height: 450px;
-            padding: 30px;
-            border-radius: 10px;
-            position: relative;
+            width: 700px;
+            padding: 40px;
+            z-index: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
+            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
 
-        .qr-title { font-size: 3rem; font-weight: bold; margin: 0 0 30px 0; }
+        .qr-box h1 {
+            font-size: 3rem;
+            margin: 0 0 30px 0;
+            font-weight: bold;
+        }
 
-        .qr-content-wrapper { display: flex; width: 100%; justify-content: space-around; align-items: center; }
+        .qr-columns {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            align-items: center;
+        }
 
-        .qr-form { display: flex; flex-direction: column; gap: 20px; width: 45%; }
+        .qr-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-        .form-group { display: grid; grid-template-columns: 100px 1fr; align-items: center; gap: 15px; }
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-        .label-text { font-weight: bold; font-size: 1.1rem; }
+        .input-group label {
+            font-size: 1.2rem;
+            min-width: 80px;
+        }
 
-        .select-capsule {
-            background-color: var(--capsula-bg);
+        .select-field {
+            background-color: #adbca1;
+            border: 2px solid var(--borde-negro);
+            padding: 8px;
+            width: 180px;
+            font-family: 'Lora', serif;
+        }
+
+        .btn-crear {
+            background-color: #c9b48b;
             border: 2px solid var(--borde-negro);
             border-radius: 20px;
-            padding: 8px 15px;
-            font-family: 'Lora', serif;
-            outline: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .btn-create {
-            background-color: #f3d4b1;
-            border: 2px solid var(--borde-negro);
-            border-radius: 25px;
             padding: 10px 40px;
             font-weight: bold;
             font-family: 'Lora', serif;
             cursor: pointer;
-            transition: 0.3s;
+            margin-top: 30px;
             align-self: center;
-            margin-top: 20px;
         }
 
-        .btn-create:hover { box-shadow: 0 0 10px white; transform: scale(1.05); }
-
-        .qr-viewer {
-            background-color: rgba(255, 255, 255, 0.1);
+        /* Pantalla QR y Botón Agrandar */
+        .qr-display-container {
+            width: 220px;
+            height: 220px;
+            background-color: #f0f0f0;
             border: 2px solid var(--borde-negro);
-            border-radius: 30px;
-            width: 250px;
-            height: 250px;
+            border-radius: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
         }
 
-        .qr-image { width: 85%; height: 85%; object-fit: contain; }
-
-        .expand-icon {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: 0.2s;
+        .qr-display-container img {
+            width: 85%;
+            height: 85%;
         }
-        .expand-icon:hover { transform: scale(1.2); color: white; }
 
-        .modal-overlay {
+        .btn-expand {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--borde-negro);
+            transition: transform 0.2s;
+        }
+
+        .btn-expand:hover {
+            transform: scale(1.2);
+        }
+
+        .mini-logo-aso {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 60px;
+            border-radius: 50%;
+        }
+
+        /* MODAL (PANTALLA COMPLETA QR) */
+        .modal {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
-            background: white;
+            background-color: white;
             padding: 20px;
-            border-radius: 10px;
+            border: 4px solid var(--borde-negro);
             position: relative;
-            text-align: center;
         }
 
-        .modal-qr-img { width: 500px; height: 500px; }
+        .modal-content img {
+            width: 500px;
+            height: 500px;
+        }
 
         .close-modal {
             position: absolute;
-            top: -15px;
-            right: -15px;
+            top: -20px;
+            right: -20px;
             background: var(--cafe-botones);
             color: white;
             border: 2px solid black;
             border-radius: 50%;
-            width: 35px; height: 35px;
+            width: 40px;
+            height: 40px;
             cursor: pointer;
             font-weight: bold;
         }
-
-        .mini-logo-aso { position: absolute; bottom: 15px; right: 15px; width: 55px; border-radius: 50%; }
-
     </style>
 </head>
+
 <body>
 
     <aside class="sidebar">
@@ -236,117 +313,89 @@
             <a href="Lista_Asisten.html" class="btn-nav">Lista de asistencia</a>
             <a href="Voluntariado.html" class="btn-nav">Voluntariado</a>
         </nav>
-        <div class="logout-container">
+        <div style="margin-top: auto; width: 85%; padding-bottom: 20px;">
             <a href="../Login.html" class="btn-nav" style="display: block;">Cerrar sesión</a>
         </div>
     </aside>
 
-    <div class="main-content">
+    <div class="main-wrapper">
         <header class="header">
             <div class="user-info">
                 <strong>Nombre:</strong> Salazar Slytherin<br>
                 <strong>Correo:</strong> Sa_sly95_12@gamil.com
             </div>
-
-            <div class="social-center">
-                <span style="font-weight: bold; font-size: 1.1rem;">Asociación Cadereyta</span>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <div style="text-align: center;">
+                <span style="font-weight: bold; font-size: 22px;">Asociación Cadereyta</span>
+                <div class="social-icons" style="justify-content: center; margin-top: 5px;">
+                    <a href="#"><i class="fa-brands fa-whatsapp" style="color: #25D366;"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram" style="color: #E1306C;"></i></a>
                 </div>
             </div>
-
             <div class="header-right">
                 <img src="../Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
-                <i class="fa-solid fa-gear settings-icon"></i>
+                <i class="fa-solid fa-gear"></i>
             </div>
         </header>
 
         <img src="../Img/fime-logo-cel.png" alt="FIME Background" class="fime-bg-logo">
 
+        <!-- AQUÍ ENTRA EL CUADRO DEL QR -->
         <main class="qr-container">
-            <section class="qr-panel">
-                <h1 class="qr-title">QR</h1>
-
-                <div class="qr-content-wrapper">
-                    <div class="qr-form">
-                        <div class="form-group">
-                            <span class="label-text">Eventos:</span>
-                            <select id="select-event" class="select-capsule">
-                                <option value="">Seleccionar evento...</option>
-                                <option value="1">Evento 1</option>
-                                <option value="2">Evento 2</option>
-                                <option value="3">Evento 3</option>
+            <section class="qr-box">
+                <h1>QR</h1>
+                <div class="qr-columns">
+                    <div class="qr-inputs">
+                        <div class="input-group">
+                            <label>Eventos:</label>
+                            <select class="select-field">
+                                <option>Seleccionar...</option>
+                                <option>Evento 4</option>
                             </select>
                         </div>
-
-                        <div class="form-group">
-                            <span class="label-text">Fecha:</span>
-                            <select id="select-date" class="select-capsule">
-                                <option value="">Seleccionar fecha...</option>
-                                <option value="2026-04-21">21/04/2026</option>
-                                <option value="2026-04-22">22/04/2026</option>
+                        <div class="input-group">
+                            <label>Fecha:</label>
+                            <select class="select-field">
+                                <option>Seleccionar...</option>
+                                <option>04/05/2026</option>
                             </select>
                         </div>
-
-                        <div class="form-group">
-                            <span class="label-text">Duracion:</span>
-                            <select id="select-duration" class="select-capsule">
-                                <option value="10">10 min</option>
-                                <option value="20">20 min</option>
-                                <option value="30">30 min</option>
-                                <option value="40">40 min</option>
-                                <option value="50">50 min</option>
-                                <option value="60">1 hora</option>
+                        <div class="input-group">
+                            <label>Duracion:</label>
+                            <select class="select-field">
+                                <option>Seleccionar...</option>
+                                <option>1 Hora</option>
                             </select>
                         </div>
-
-                        <button class="btn-create" onclick="generateQR()">Crear</button>
+                        <button class="btn-crear">Crear</button>
                     </div>
 
-                    <div class="qr-viewer">
-                        <i class="fa-solid fa-expand expand-icon" onclick="openModal()"></i>
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=SIGAE-EVENTO" alt="QR Code" class="qr-image" id="qr-img">
+                    <div class="qr-display-container">
+                        <button class="btn-expand" onclick="openQR()"><i class="fa-solid fa-expand"></i></button>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=SIGAE-EVENTO-4"
+                            alt="QR Code">
                     </div>
                 </div>
-
-                <img src="../Img/Logo de la Aso.jpeg" alt="Aso Logo" class="mini-logo-aso">
+                <img src="../Img/Logo de la Aso.jpeg" alt="Asociación" class="mini-logo-aso">
             </section>
         </main>
     </div>
 
-    <div id="qrModal" class="modal-overlay">
+    <!-- Modal para agrandar el código -->
+    <div id="qrModal" class="modal">
         <div class="modal-content">
-            <button class="close-modal" onclick="closeModal()">X</button>
-            <img id="modal-img" src="" class="modal-qr-img">
-            <p style="margin-top: 10px; font-weight: bold;">Escanea para registrar asistencia</p>
+            <button class="close-modal" onclick="closeQR()">X</button>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=SIGAE-EVENTO-4" alt="QR Grande">
         </div>
     </div>
 
     <script>
-        function generateQR() {
-            const event = document.getElementById('select-event').value;
-            if(!event) return alert("Selecciona un evento primero");
-            alert("QR generado correctamente para " + document.getElementById('select-event').options[document.getElementById('select-event').selectedIndex].text);
+        function openQR() {
+            document.getElementById('qrModal').style.display = 'flex';
         }
-
-        function openModal() {
-            const modal = document.getElementById('qrModal');
-            const qrSrc = document.getElementById('qr-img').src;
-            document.getElementById('modal-img').src = qrSrc;
-            modal.style.display = "flex";
-        }
-
-        function closeModal() {
-            document.getElementById('qrModal').style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('qrModal');
-            if (event.target == modal) {
-                closeModal();
-            }
+        function closeQR() {
+            document.getElementById('qrModal').style.display = 'none';
         }
     </script>
 </body>
+
 </html>

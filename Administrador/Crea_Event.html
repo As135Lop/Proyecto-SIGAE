@@ -116,9 +116,25 @@
             color: #E1306C;
         }
 
+        .header-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 20px;
+            height: 100%;
+        }
+
         .logo-safime {
             height: 220px;
             width: auto;
+        }
+
+        .fa-gear {
+            font-size: 28px;
+            color: var(--borde-negro);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
         }
 
         .header-right {
@@ -271,9 +287,9 @@
         <img src="../Img/Logo de equipo.jpeg" alt="Logo SIGAE" class="logo-sigae">
         <nav class="nav-buttons">
             <a href="Inicio.html" class="btn-nav">Inicio</a>
-            <a href="Miembros.html" class="btn-nav" style="box-shadow: 0 0 10px white;">Miembros</a>
+            <a href="Miembros.html" class="btn-nav">Miembros</a>
             <a href="Administrador.html" class="btn-nav">Administradores</a>
-            <a href="Crea_Event.html" class="btn-nav">Eventos</a>
+            <a href="Crea_Event.html" class="btn-nav" style="box-shadow: 0 0 10px white;">Eventos</a>
             <a href="Crear_QR.html" class="btn-nav">QR</a>
             <a href="Lista_Asisten.html" class="btn-nav">Lista de asistencia</a>
             <a href="Voluntariado.html" class="btn-nav">Voluntariado</a>
@@ -351,60 +367,59 @@
     </div>
 
     <script>
-    // Esta línea se queda igual, sirve para poner la fecha actual al abrir la ventana
-    document.getElementById('event-date').valueAsDate = new Date();
+        document.getElementById('event-date').valueAsDate = new Date();
 
-    // Esta es la nueva función que REEMPLAZA a la anterior
-    async function createEvent() {
-        const name = document.getElementById('event-name').value;
-        const desc = document.getElementById('event-desc').value;
-        const points = document.getElementById('event-points').value;
-        const time = document.getElementById('event-time').value;
-        const date = document.getElementById('event-date').value;
+        // Esta es la nueva función que REEMPLAZA a la anterior
+        async function createEvent() {
+            const name = document.getElementById('event-name').value;
+            const desc = document.getElementById('event-desc').value;
+            const points = document.getElementById('event-points').value;
+            const time = document.getElementById('event-time').value;
+            const date = document.getElementById('event-date').value;
 
-        // Mantenemos tu validación original
-        if (!name || !desc || !date) {
-            alert("Por favor, completa los campos de nombre, descripción y fecha.");
-            return;
-        }
-
-        // Preparamos el objeto con los nombres exactos para el Backend
-        const datosEvento = {
-            nombre: name,
-            descripcion: desc,
-            puntos: parseInt(points),
-            horario: time,
-            fecha: date
-        };
-
-        try {
-            // "Fetch" envía los datos a la dirección de tu servidor Node.js
-            const response = await fetch('http://localhost:3000/api/crear-evento', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(datosEvento)
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                alert("¡Evento '" + name + "' guardado en SIGAE con éxito!");
-                
-                // Limpiamos los campos después de guardar
-                document.getElementById('event-name').value = '';
-                document.getElementById('event-desc').value = '';
-                document.getElementById('event-points').value = '10';
-            } else {
-                alert("Error en el servidor: " + result.error);
+            // Mantenemos tu validación original
+            if (!name || !desc || !date) {
+                alert("Por favor, completa los campos de nombre, descripción y fecha.");
+                return;
             }
-        } catch (error) {
-            console.error("Error de conexión:", error);
-            alert("No se pudo conectar con el servidor. ¿Revisaste si Node.js está corriendo?");
+
+            // Preparamos el objeto con los nombres exactos para el Backend
+            const datosEvento = {
+                nombre: name,
+                descripcion: desc,
+                puntos: parseInt(points),
+                horario: time,
+                fecha: date
+            };
+
+            try {
+                // "Fetch" envía los datos a la dirección de tu servidor Node.js
+                const response = await fetch('http://localhost:3000/api/crear-evento', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(datosEvento)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert("¡Evento '" + name + "' guardado en SIGAE con éxito!");
+
+                    // Limpiamos los campos después de guardar
+                    document.getElementById('event-name').value = '';
+                    document.getElementById('event-desc').value = '';
+                    document.getElementById('event-points').value = '10';
+                } else {
+                    alert("Error en el servidor: " + result.error);
+                }
+            } catch (error) {
+                console.error("Error de conexión:", error);
+                alert("No se pudo conectar con el servidor. ¿Revisaste si Node.js está corriendo?");
+            }
         }
-    }
-</script>
+    </script>
 </body>
 
 </html>

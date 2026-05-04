@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voluntariado - SIGAE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
         :root {
-            --verde-fondo: #8b907c;
-            --verde-paneles: #8a9b6e;
+            --verde-fondo-principal: #8b907c;
+            --verde-solido-paneles: #8a9b6e;
+            /* El verde fuerte que pediste */
             --cafe-botones: #8b5e3c;
             --borde-negro: #1a1a1a;
             --capsula-bg: #adbca1;
@@ -19,12 +23,13 @@
             margin: 0;
             padding: 0;
             font-family: 'Lora', serif;
-            background-color: var(--verde-fondo);
+            background-color: var(--verde-fondo-principal);
             height: 100vh;
             display: flex;
             overflow: hidden;
         }
 
+        /* BARRA LATERAL */
         .sidebar {
             width: 220px;
             border-right: 2px solid var(--borde-negro);
@@ -32,17 +37,28 @@
             flex-direction: column;
             align-items: center;
             padding: 10px 0;
-            background-color: var(--verde-paneles);
+            background-color: var(--verde-solido-paneles);
+            z-index: 10;
         }
 
-        .logo-sigae { width: 100px; margin-bottom: 20px; border-radius: 50%; }
+        .logo-sigae {
+            width: 100px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--borde-negro);
+        }
 
-        .nav-buttons { display: flex; flex-direction: column; gap: 12px; width: 85%; }
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 85%;
+        }
 
         .btn-nav {
             background-color: var(--cafe-botones);
             border: 2px solid var(--borde-negro);
-            padding: 8px;
+            padding: 10px;
             font-family: 'Lora', serif;
             font-weight: bold;
             cursor: pointer;
@@ -50,16 +66,23 @@
             text-align: center;
             text-decoration: none;
             color: black;
+            font-size: 14px;
         }
 
-        .btn-nav:hover {
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-            filter: brightness(1.1);
-            transform: scale(1.02);
+        .btn-nav:hover,
+        .btn-nav.active {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            filter: brightness(1.2);
+            transform: scale(1.05);
         }
 
-        .logout-container { margin-top: auto; width: 85%; padding-bottom: 20px; }
+        .logout-container {
+            margin-top: auto;
+            width: 85%;
+            padding-bottom: 20px;
+        }
 
+        /* CONTENIDO PRINCIPAL */
         .main-content {
             flex: 1;
             display: flex;
@@ -68,86 +91,159 @@
         }
 
         .header {
-            height: 110px;
+            height: 100px;
             border-bottom: 2px solid var(--borde-negro);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
-            background-color: var(--verde-paneles);
+            padding: 0 25px;
+            background-color: var(--verde-solido-paneles);
+            z-index: 10;
         }
 
-        .social-center { text-align: center; flex: 1; }
+        .user-info {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .social-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .social-center span {
+            font-weight: bold;
+            font-size: 25px;
+        }
 
         .social-icons {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            font-size: 28px;
-            margin-top: 5px;
+            gap: 20px;
+            font-size: 32px;
         }
 
-        .fa-whatsapp { color: #25D366; }
-        .fa-instagram { color: #E1306C; }
+        .social-icons a {
+            color: inherit;
+            background-color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--borde-negro);
+            text-decoration: none;
+        }
 
-        .logo-safime { height: 75px; }
+        .fa-whatsapp {
+            color: #25D366;
+        }
 
-        .volunteer-container {
+        .fa-instagram {
+            color: #E1306C;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            /* Alinea verticalmente el logo y el engranaje */
+            justify-content: flex-end;
+            gap: 20px;
+            /* Crea un espacio elegante entre el logo y el icono */
+            height: 100%;
+            /* Asegura que use los 100px del header */
+        }
+
+        .logo-safime {
+            height: 220px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .fa-gear {
+            font-size: 28px;
+            color: var(--borde-negro);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+
+        /* AREA DE VOLUNTARIADO */
+        .volunteer-area {
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 40px;
             padding: 20px;
-            z-index: 1;
+            position: relative;
         }
 
         .fime-bg-logo {
             position: absolute;
             left: 50%;
-            top: 55%;
+            top: 50%;
             transform: translate(-50%, -50%);
-            width: 500px;
-            opacity: 0.1;
+            width: 700px;
+            opacity: 0.15;
             z-index: 0;
             pointer-events: none;
         }
 
         .vol-panel {
-            background-color: rgba(138, 155, 110, 0.95);
+            background-color: var(--verde-solido-paneles);
             border: 2px solid var(--borde-negro);
             padding: 30px;
-            border-radius: 10px;
             position: relative;
+            z-index: 1;
             display: flex;
             flex-direction: column;
         }
 
-        .panel-left { width: 55%; height: 500px; }
-        .panel-right { width: 30%; height: 500px; }
+        .panel-left {
+            width: 50%;
+            height: 480px;
+        }
 
-        .title-vol { font-size: 2.2rem; font-weight: bold; margin-bottom: 20px; }
+        .panel-right {
+            width: 30%;
+            height: 480px;
+        }
 
-        .input-row { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .title-vol {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
 
-        .label-text { font-weight: bold; font-size: 1.1rem; }
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
 
         .select-capsule {
             background-color: var(--capsula-bg);
             border: 2px solid var(--borde-negro);
             border-radius: 20px;
-            padding: 8px 15px;
+            padding: 5px 15px;
             font-family: 'Lora', serif;
             outline: none;
-            cursor: pointer;
         }
 
+        /* Caja de descripción */
         .desc-container {
             border: 2px solid var(--borde-negro);
             padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
             flex: 1;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
         }
 
         .desc-textarea {
@@ -159,77 +255,80 @@
             font-family: 'Lora', serif;
             font-style: italic;
             resize: none;
+            font-size: 0.95rem;
         }
 
-        .small-input {
-            width: 60px;
-            text-align: center;
-            background-color: var(--capsula-bg);
-            border: 2px solid var(--borde-negro);
-            padding: 5px;
-        }
-
-        .btn-crear, .btn-lista {
-            background-color: #f3d4b1;
-            border: 2px solid var(--borde-negro);
-            border-radius: 15px;
-            padding: 10px 30px;
-            font-weight: bold;
-            font-family: 'Lora', serif;
-            cursor: pointer;
-            transition: 0.3s;
-            margin: 10px auto 0;
-        }
-
-        .btn-crear:hover, .btn-lista:hover { box-shadow: 0 0 10px white; }
-
-        .status-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        .status-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .mini-square {
+        /* Estilo para los cuadros de números */
+        .num-box {
             width: 50px;
-            height: 50px;
+            height: 40px;
+            border: 2px solid var(--borde-negro);
+            background-color: transparent;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            font-family: 'Lora', serif;
+        }
+
+        .display-square {
+            width: 60px;
+            height: 60px;
             border: 2px solid var(--borde-negro);
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
+            font-size: 1.3rem;
+            margin-top: 5px;
+        }
+
+        .btn-beige {
+            background-color: #f3d4b1;
+            border: 2px solid var(--borde-negro);
+            border-radius: 15px;
+            padding: 8px 30px;
+            font-weight: bold;
+            font-family: 'Lora', serif;
+            cursor: pointer;
+            align-self: center;
+            transition: 0.2s;
+        }
+
+        .btn-beige:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 0 10px white;
         }
 
         .mini-logo-aso {
             position: absolute;
-            bottom: 15px;
-            right: 15px;
-            width: 55px;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
             border-radius: 50%;
         }
 
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
     </style>
 </head>
+
 <body>
 
     <aside class="sidebar">
-        <img src="Img/Logo de equipo.jpeg" alt="Logo SIGAE" class="logo-sigae">
+        <img src="../Img/Logo de equipo.jpeg" alt="Logo SIGAE" class="logo-sigae">
         <nav class="nav-buttons">
             <a href="Inicio.html" class="btn-nav">Inicio</a>
             <a href="Miembros.html" class="btn-nav">Miembros</a>
-            <a href="Administradores.html" class="btn-nav">Administradores</a>
-            <a href="Eventos.html" class="btn-nav">Eventos</a>
+            <a href="Administrador.html" class="btn-nav">Administradores</a>
+            <a href="Crea_Event.html" class="btn-nav">Eventos</a>
             <a href="Crear_QR.html" class="btn-nav">QR</a>
             <a href="Lista_Asisten.html" class="btn-nav">Lista de asistencia</a>
-            <a href="Voluntariado.html" class="btn-nav" style="box-shadow: 0 0 10px white;">Voluntariado</a>
+            <a href="#" class="btn-nav active">Voluntariado</a>
         </nav>
         <div class="logout-container">
             <a href="../Login.html" class="btn-nav" style="display: block;">Cerrar sesión</a>
@@ -239,94 +338,132 @@
     <div class="main-content">
         <header class="header">
             <div class="user-info">
-                <strong>Nombre:</strong> Salazar Slytherin<br>
+                <strong>Nombre:</strong> Roberto Juarez<br>
                 <strong>Correo:</strong> Sa_sly95_12@gamil.com
             </div>
-
             <div class="social-center">
-                <span style="font-weight: bold; font-size: 1.1rem;">Asociación Cadereyta</span>
+                <span>Asociación Cadereyta</span>
                 <div class="social-icons">
                     <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
-
             <div class="header-right">
-                <img src="Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
+                <img src="../Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
                 <i class="fa-solid fa-gear settings-icon"></i>
             </div>
         </header>
 
-        <img src="Img/fime-logo-cel.png" alt="FIME Background" class="fime-bg-logo">
+        <div class="volunteer-area">
+            <img src="../Img/fime-logo-cel.png" alt="FIME Background" class="fime-bg-logo">
 
-        <main class="volunteer-container">
-            
             <section class="vol-panel panel-left">
                 <h1 class="title-vol">Voluntariado</h1>
                 <div class="input-row">
-                    <span class="label-text">Evento:</span>
-                    <select class="select-capsule">
-                        <option>Evento 4</option>
-                        <option>Evento 5</option>
+                    <strong>Evento:</strong>
+                    <select id="reg-evento" class="select-capsule">
+                        <option value="Evento 4">Evento 4</option>
+                        <option value="Evento 5">Evento 5</option>
                     </select>
                 </div>
 
                 <div class="desc-container">
-                    <span class="label-text">Descripción:</span>
-                    <textarea class="desc-textarea" placeholder="Escribe aquí lo que se necesita del voluntariado..."></textarea>
+                    <strong>Descripción:</strong>
+                    <textarea id="reg-desc"
+                        class="desc-textarea">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam..."</textarea>
                 </div>
 
-                <div style="display: flex; justify-content: center; gap: 40px; align-items: center;">
+                <div style="display: flex; justify-content: center; gap: 40px; margin-bottom: 15px;">
                     <div style="display: flex; align-items: center; gap: 10px;">
-                        <span class="label-text">Voluntarios:</span>
-                        <input type="number" class="small-input" value="11">
+                        <strong>Voluntarios:</strong>
+                        <input type="number" id="reg-max" class="num-box" value="11">
                     </div>
                     <div style="display: flex; align-items: center; gap: 10px;">
-                        <span class="label-text">puntos:</span>
-                        <input type="number" class="small-input" value="3">
+                        <strong>puntos</strong>
+                        <input type="number" id="reg-pts" class="num-box" value="3">
                     </div>
                 </div>
-
-                <button class="btn-crear" onclick="alert('Registro de voluntariado creado')">Crear</button>
+                <button class="btn-beige" onclick="crearRegistro()">Crear</button>
             </section>
 
             <section class="vol-panel panel-right">
                 <div class="input-row">
-                    <span class="label-text">Evento:</span>
-                    <select class="select-capsule">
-                        <option>Evento 4</option>
+                    <strong>Evento:</strong>
+                    <select id="search-evento" class="select-capsule" onchange="actualizarConsulta()">
                     </select>
-                    <button class="btn-lista" onclick="descargarLista()">Voluntarios</button>
+                    <button class="btn-beige" style="padding: 5px 10px;" onclick="descargarLista()">Voluntarios</button>
                 </div>
 
                 <div class="status-grid">
-                    <div class="status-box" style="grid-column: 1 / span 2;">
-                        <span class="label-text">Maximo</span>
-                        <div class="mini-square">11</div>
+                    <div style="grid-column: 1 / span 2; display: flex; flex-direction: column; align-items: center;">
+                        <strong>Maximo</strong>
+                        <div id="view-max" class="display-square">0</div>
                     </div>
-                    <div class="status-box">
-                        <span class="label-text">Registrados</span>
-                        <div class="mini-square">7</div>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <strong>Registrados</strong>
+                        <div id="view-reg" class="display-square">0</div>
                     </div>
-                    <div class="status-box">
-                        <span class="label-text">puntos</span>
-                        <div class="mini-square">3</div>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <strong>puntos</strong>
+                        <div id="view-pts" class="display-square">0</div>
                     </div>
                 </div>
 
-                <img src="Img/Logo de la Aso.jpeg" alt="Aso Logo" class="mini-logo-aso">
+                <img src="../Img/Logo de la Aso.jpeg" alt="Logo Aso" class="mini-logo-aso">
             </section>
-
-        </main>
+        </div>
     </div>
 
     <script>
-        function descargarLista() {
-            alert("Preparando lista de voluntarios...");
-            setTimeout(() => {
-                alert("Lista descargada y enviada a la nube exitosamente para consulta pública.");
-            }, 800);
+        // Base de datos simulada
+        let voluntariados = [
+            { id: "Evento 4", desc: "Apoyo en logística de evento deportivo.", max: 11, reg: 7, pts: 3 }
+        ];
+
+        function crearRegistro() {
+            const evento = document.getElementById('reg-evento').value;
+            const desc = document.getElementById('reg-desc').value;
+            const max = document.getElementById('reg-max').value;
+            const pts = document.getElementById('reg-pts').value;
+
+            // Evitar duplicados simples para el ejemplo
+            voluntariados = voluntariados.filter(v => v.id !== evento);
+
+            voluntariados.push({ id: evento, desc, max, reg: 0, pts });
+            alert("¡Registro de voluntariado creado!");
+            cargarSelect();
         }
+
+        function cargarSelect() {
+            const select = document.getElementById('search-evento');
+            select.innerHTML = '';
+            voluntariados.forEach(v => {
+                const opt = document.createElement('option');
+                opt.value = v.id;
+                opt.textContent = v.id;
+                select.appendChild(opt);
+            });
+            actualizarConsulta();
+        }
+
+        function actualizarConsulta() {
+            const val = document.getElementById('search-evento').value;
+            const data = voluntariados.find(v => v.id === val);
+            if (data) {
+                document.getElementById('view-max').textContent = data.max;
+                document.getElementById('view-reg').textContent = data.reg;
+                document.getElementById('view-pts').textContent = data.pts;
+            }
+        }
+
+        function descargarLista() {
+            const evento = document.getElementById('search-evento').value;
+            alert("Descargando lista de inscritos para: " + evento + "\nSincronizando con la nube...");
+        }
+
+        // Carga inicial
+        window.onload = cargarSelect;
     </script>
 </body>
+
 </html>
