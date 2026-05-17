@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voluntariado - SIGAE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --verde-fondo: #c8cdb8;
+            --verde-paneles: #8a9b6e;
+            --cafe-botones: #8b5e3c;
+            --borde-negro: #1a1a1a;
+            --capsula-bg: #adbca1;
+            --gris-ph: #888;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Lora', serif;
+            background-color: var(--verde-fondo);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            width: 175px;
+            flex-shrink: 0;
+            border-right: 2px solid var(--borde-negro);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            background-color: var(--verde-paneles);
+        }
+
+        .logo-sigae { width: 90px; margin-bottom: 18px; border-radius: 50%; }
+
+        .nav-buttons { display: flex; flex-direction: column; gap: 10px; width: 85%; }
+
+        .btn-nav {
+            background-color: var(--cafe-botones);
+            border: 2px solid var(--borde-negro);
+            padding: 9px 6px;
+            font-family: 'Lora', serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            color: black;
+            font-size: 13px;
+            display: block;
+        }
+
+        .btn-nav:hover, .btn-nav.active {
+            box-shadow: 0 0 15px rgba(255,255,255,0.8);
+            filter: brightness(1.1);
+            transform: scale(1.02);
+        }
+
+        .logout-container { margin-top: auto; width: 85%; padding-bottom: 18px; }
+
+        /* ── MAIN ── */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* ── HEADER — igual que Inicio ── */
+        .header {
+            height: 78px;
+            border-bottom: 2px solid var(--borde-negro);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 16px;
+            background-color: var(--verde-paneles);
+            flex-shrink: 0;
+            flex-wrap: nowrap;
+            overflow: hidden;
+            gap: 6px;
+        }
+
+        .user-info {
+            font-size: 13px;
+            line-height: 1.7;
+            min-width: 150px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .user-info strong { font-weight: 700; }
+
+        .valor { color: var(--gris-ph); font-style: italic; }
+        .valor.activo { color: inherit; font-style: normal; }
+
+        .social-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .asociacion-titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .social-icons { display: flex; gap: 16px; align-items: center; }
+
+        .social-icons a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+        }
+
+        .social-icons a svg { width: 36px; height: 36px; }
+
+        .header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+        .logo-safime {
+            height: 200px;
+            width: auto;
+            max-width: 160px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+        }
+
+        .settings-icon {
+            font-size: 22px;
+            cursor: pointer;
+            transition: transform 0.35s;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .settings-icon:hover { transform: rotate(65deg); }
+
+        /* ── CONTENT ── */
+        .content-area {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .fime-bg-logo {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 520px;
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ── PANEL PRINCIPAL ── */
+        .vol-panel {
+            position: relative;
+            z-index: 1;
+            background-color: rgba(138, 155, 110, 0.95);
+            border: 2px solid var(--borde-negro);
+            border-radius: 8px;
+            width: 76%;
+            max-width: 860px;
+            padding: 32px 40px 36px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .vol-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .eventos-row { display: flex; align-items: center; gap: 12px; }
+
+        .label-text { font-weight: bold; font-size: 1rem; }
+
+        .select-eventos {
+            background-color: var(--capsula-bg);
+            border: 2px solid var(--borde-negro);
+            border-radius: 4px;
+            padding: 6px 10px;
+            font-family: 'Lora', serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            outline: none;
+            min-width: 200px;
+            appearance: auto;
+        }
+
+        /* ── PANEL DESCRIPCIÓN ── */
+        .desc-panel {
+            border: 2px solid var(--borde-negro);
+            background-color: rgba(120, 140, 100, 0.35);
+            padding: 16px 20px;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .desc-label {
+            font-weight: bold;
+            font-size: 1rem;
+            text-decoration: underline;
+            display: inline-block;
+        }
+
+        .desc-text {
+            font-style: italic;
+            font-size: 0.97rem;
+            line-height: 1.75;
+            color: #111;
+        }
+
+        .mini-logo-aso {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            border: 2px solid var(--borde-negro);
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <img src="#" class="logo-sigae">
+        <nav class="nav-buttons">
+            <a href="bienvenida.html" class="btn-nav">Inicio</a>
+            <a href="eventos.html" class="btn-nav">Eventos</a>
+            <a href="voluntariado.html" class="btn-nav active">Voluntariado</a>
+            <a href="asistencia.html" class="btn-nav">Asistencia</a>
+            <a href="lista_eventos.html" class="btn-nav">Lista de eventos asistido</a>
+        </nav>
+        <div class="logout-container">
+            <a href="#" class="btn-nav" style="display:block;">Cerrar sesión</a>
+        </div>
+    </aside>
+
+    <div class="main-content">
+
+        <header class="header">
+            <div class="user-info">
+                <strong>Nombre:</strong> <span id="user-nombre" class="valor">Salazar Slytherin</span><br>
+                <strong>Correo:</strong> <span id="user-correo" class="valor">Sa_sly95_12@gmail.com</span>
+            </div>
+
+            <div class="social-center">
+                <span class="asociacion-titulo">Asociación Cadereyta</span>
+                <div class="social-icons">
+                    <a href="https://wa.me/tu-numero" target="_blank" title="WhatsApp" style="background:#25D366; border-radius:10px;">
+                        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.862L.057 23.428a.5.5 0 00.609.61l5.692-1.463A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.502-5.177-1.381l-.36-.215-3.735.96.99-3.645-.236-.374A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/tu-usuario" target="_blank" title="Instagram"
+                        style="background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); border-radius:10px;">
+                        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <img src="#" alt="SAFIME" class="logo-safime">
+                <i class="fa-solid fa-gear settings-icon" title="Configuración"></i>
+            </div>
+        </header>
+
+        <div class="content-area">
+            <img src="#" class="fime-bg-logo">
+
+            <div class="vol-panel">
+                <div class="vol-title">Voluntariado</div>
+
+                <div class="eventos-row">
+                    <span class="label-text">Eventos:</span>
+                    <select class="select-eventos" id="selectEvento" onchange="updateDesc()">
+                        <option value="">-- Selecciona un evento --</option>
+                        <option value="1">Eventos 1</option>
+                        <option value="2">Eventos 2</option>
+                        <option value="3">Eventos 3</option>
+                        <option value="4">Eventos 4</option>
+                        <option value="5">Eventos 5</option>
+                    </select>
+                </div>
+
+                <div class="desc-panel">
+                    <span class="desc-label">Descripción:</span>
+                    <div class="desc-text" id="descText">
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    </div>
+                </div>
+
+                <img src="#" alt="Logo Aso" class="mini-logo-aso">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setUsuario(nombre, correo) {
+            const elN = document.getElementById('user-nombre');
+            const elC = document.getElementById('user-correo');
+            if (nombre) { elN.textContent = nombre; elN.classList.add('activo'); }
+            if (correo)  { elC.textContent = correo;  elC.classList.add('activo'); }
+        }
+        setUsuario(
+            sessionStorage.getItem('nombre'), 
+            sessionStorage.getItem('correo')  
+        );
+        
+        const descripciones = {
+            '1': '"Evento 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."',
+            '2': '"Evento 2: Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor."',
+            '3': '"Evento 3: Nullam quis risus eget urna mollis ornare vel eu leo. Cras mattis consectetur purus sit amet fermentum."',
+            '4': '"Evento 4: Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper."',
+            '5': '"Evento 5: Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur."',
+        };
+
+        function updateDesc() {
+            const val = document.getElementById('selectEvento').value;
+            const desc = document.getElementById('descText');
+            desc.textContent = val ? descripciones[val] : '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."';
+        }
+    </script>
+</body>
+</html>

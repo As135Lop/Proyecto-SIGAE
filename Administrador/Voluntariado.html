@@ -3,184 +3,213 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Voluntariado - SIGAE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            --verde-fondo-principal: #8b907c;
-            --verde-solido-paneles: #8a9b6e;
-            /* El verde fuerte que pediste */
-            --cafe-botones: #8b5e3c;
-            --borde-negro: #1a1a1a;
+            --verde-fondo: #c8cdb8;
+            --verde-panel: #8a9b6e;
+            --cafe-btn: #8b5e3c;
+            --negro-borde: #1a1a1a;
+            --gris-ph: #888;
             --capsula-bg: #adbca1;
         }
 
-        body {
+        * {
             margin: 0;
             padding: 0;
-            font-family: 'Lora', serif;
-            background-color: var(--verde-fondo-principal);
-            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--verde-fondo);
+            min-height: 100vh;
             display: flex;
             overflow: hidden;
         }
 
-        /* BARRA LATERAL */
+        /* ── SIDEBAR ── */
         .sidebar {
             width: 220px;
-            border-right: 2px solid var(--borde-negro);
+            min-width: 220px;
+            border-right: 2px solid var(--negro-borde);
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 10px 0;
-            background-color: var(--verde-solido-paneles);
-            z-index: 10;
+            padding: 14px 0;
+            background-color: var(--verde-panel);
+            z-index: 20;
+            overflow-y: auto;
+            flex-shrink: 0;
         }
 
         .logo-sigae {
-            width: 100px;
-            margin-bottom: 20px;
+            width: 130px;
+            height: 130px;
+            margin-bottom: 16px;
             border-radius: 50%;
-            border: 2px solid var(--borde-negro);
+            border: 3px solid var(--negro-borde);
+            object-fit: cover;
+            background: #3a4a25;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+            flex-shrink: 0;
         }
 
         .nav-buttons {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             width: 85%;
         }
 
         .btn-nav {
-            background-color: var(--cafe-botones);
-            border: 2px solid var(--borde-negro);
+            background-color: var(--cafe-btn);
+            border: 2px solid var(--negro-borde);
             padding: 10px;
-            font-family: 'Lora', serif;
-            font-weight: bold;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 13.5px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
             text-align: center;
             text-decoration: none;
-            color: black;
-            font-size: 14px;
+            color: #000;
+            display: block;
+            border-radius: 3px;
         }
 
         .btn-nav:hover,
         .btn-nav.active {
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 18px rgba(255,255,255,0.75);
             filter: brightness(1.2);
-            transform: scale(1.05);
+            transform: scale(1.04);
         }
 
         .logout-container {
             margin-top: auto;
             width: 85%;
-            padding-bottom: 20px;
+            padding: 12px 0 18px;
         }
 
-        /* CONTENIDO PRINCIPAL */
+        /* ── MAIN ── */
         .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
-            position: relative;
+            overflow: hidden;
+            min-width: 0;
         }
 
+        /* ── HEADER ── */
         .header {
-            height: 100px;
-            border-bottom: 2px solid var(--borde-negro);
+            height: 78px;
+            border-bottom: 2px solid var(--negro-borde);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 25px;
-            background-color: var(--verde-solido-paneles);
+            padding: 8px 16px;
+            background-color: var(--verde-panel);
             z-index: 10;
+            flex-shrink: 0;
+            flex-wrap: nowrap;
+            overflow: hidden;
+            gap: 6px;
         }
 
         .user-info {
-            font-size: 14px;
-            line-height: 1.4;
+            font-size: 13px;
+            line-height: 1.7;
+            min-width: 150px;
+        }
+
+        .user-info strong { font-weight: 700; }
+
+        .valor {
+            color: var(--gris-ph);
+            font-style: italic;
+        }
+
+        .valor.activo {
+            color: inherit;
+            font-style: normal;
         }
 
         .social-center {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .social-center span {
-            font-weight: bold;
-            font-size: 25px;
+        .asociacion-titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            white-space: nowrap;
         }
 
         .social-icons {
             display: flex;
-            gap: 20px;
-            font-size: 32px;
+            gap: 16px;
+            align-items: center;
         }
 
         .social-icons a {
-            color: inherit;
-            background-color: white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid var(--borde-negro);
-            text-decoration: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .fa-whatsapp {
-            color: #25D366;
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
         }
 
-        .fa-instagram {
-            color: #E1306C;
-        }
+        .social-icons a svg { width: 36px; height: 36px; }
 
         .header-right {
             display: flex;
             align-items: center;
-            /* Alinea verticalmente el logo y el engranaje */
-            justify-content: flex-end;
-            gap: 20px;
-            /* Crea un espacio elegante entre el logo y el icono */
-            height: 100%;
-            /* Asegura que use los 100px del header */
+            gap: 10px;
+            flex-shrink: 0;
         }
 
         .logo-safime {
-            height: 220px;
+            height: 200px;
             width: auto;
+            max-width: 160px;
             object-fit: contain;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2));
         }
 
-        .fa-gear {
-            font-size: 28px;
-            color: var(--borde-negro);
+        .settings-icon {
+            font-size: 22px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
+            transition: transform 0.35s;
+            flex-shrink: 0;
+            line-height: 1;
         }
 
+        .settings-icon:hover { transform: rotate(65deg); }
 
-        /* AREA DE VOLUNTARIADO */
+        /* ── ÁREA VOLUNTARIADO ── */
         .volunteer-area {
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 40px;
+            gap: 30px;
             padding: 20px;
             position: relative;
+            overflow: hidden;
         }
 
         .fime-bg-logo {
@@ -188,20 +217,23 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            width: 700px;
+            width: 570px;
             opacity: 0.15;
             z-index: 0;
             pointer-events: none;
         }
 
+        /* ── PANELES ── */
         .vol-panel {
-            background-color: var(--verde-solido-paneles);
-            border: 2px solid var(--borde-negro);
-            padding: 30px;
+            background-color: var(--verde-panel);
+            border: 2px solid var(--negro-borde);
+            padding: 28px;
             position: relative;
             z-index: 1;
             display: flex;
             flex-direction: column;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.2);
+            border-radius: 5px;
         }
 
         .panel-left {
@@ -210,13 +242,14 @@
         }
 
         .panel-right {
-            width: 30%;
+            width: 28%;
             height: 480px;
         }
 
         .title-vol {
+            font-family: 'Playfair Display', serif;
             font-size: 2.2rem;
-            font-weight: bold;
+            font-weight: 700;
             margin-bottom: 20px;
             margin-top: 0;
         }
@@ -226,24 +259,32 @@
             align-items: center;
             gap: 10px;
             margin-bottom: 15px;
+            font-weight: 700;
         }
 
         .select-capsule {
             background-color: var(--capsula-bg);
-            border: 2px solid var(--borde-negro);
+            border: 2px solid var(--negro-borde);
             border-radius: 20px;
             padding: 5px 15px;
-            font-family: 'Lora', serif;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
             outline: none;
+            cursor: pointer;
         }
 
-        /* Caja de descripción */
         .desc-container {
-            border: 2px solid var(--borde-negro);
+            border: 2px solid var(--negro-borde);
             padding: 15px;
             flex: 1;
             margin-bottom: 20px;
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255,255,255,0.05);
+            border-radius: 4px;
+        }
+
+        .desc-container strong {
+            font-family: 'Playfair Display', serif;
+            font-size: 15px;
         }
 
         .desc-textarea {
@@ -252,59 +293,66 @@
             background: transparent;
             border: none;
             outline: none;
-            font-family: 'Lora', serif;
+            font-family: 'Nunito', sans-serif;
             font-style: italic;
             resize: none;
             font-size: 0.95rem;
+            margin-top: 8px;
         }
 
-        /* Estilo para los cuadros de números */
         .num-box {
-            width: 50px;
+            width: 55px;
             height: 40px;
-            border: 2px solid var(--borde-negro);
-            background-color: transparent;
+            border: 2px solid var(--negro-borde);
+            background-color: rgba(255,255,255,0.15);
             text-align: center;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 1.1rem;
-            font-family: 'Lora', serif;
+            font-family: 'Nunito', sans-serif;
+            border-radius: 6px;
+            outline: none;
         }
 
         .display-square {
             width: 60px;
             height: 60px;
-            border: 2px solid var(--borde-negro);
+            border: 2px solid var(--negro-borde);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 1.3rem;
             margin-top: 5px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 4px;
         }
 
         .btn-beige {
             background-color: #f3d4b1;
-            border: 2px solid var(--borde-negro);
+            border: 2px solid var(--negro-borde);
             border-radius: 15px;
             padding: 8px 30px;
-            font-weight: bold;
-            font-family: 'Lora', serif;
+            font-weight: 700;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
             cursor: pointer;
             align-self: center;
-            transition: 0.2s;
+            transition: all 0.25s ease;
         }
 
         .btn-beige:hover {
             filter: brightness(1.1);
-            box-shadow: 0 0 10px white;
+            box-shadow: 0 0 14px rgba(255,255,255,0.6);
+            transform: scale(1.04);
         }
 
         .mini-logo-aso {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
+            bottom: 15px;
+            right: 15px;
+            width: 58px;
             border-radius: 50%;
+            border: 1.5px solid var(--negro-borde);
         }
 
         .status-grid {
@@ -314,11 +362,85 @@
             margin-top: 30px;
             text-align: center;
         }
+
+        .status-grid strong {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+        }
+
+        /* ── RESPONSIVO MÓVIL ── */
+        @media (max-width: 700px) {
+            body {
+                flex-direction: column;
+                overflow-y: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                min-width: unset;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow: hidden;
+                justify-content: center;
+                padding: 10px;
+                border-right: none;
+                border-bottom: 2px solid var(--negro-borde);
+            }
+
+            .logo-sigae {
+                width: 70px;
+                height: 70px;
+                margin: 0 10px 0 0;
+            }
+
+            .nav-buttons {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow: hidden;
+                justify-content: center;
+                gap: 6px;
+                width: auto;
+            }
+
+            .btn-nav {
+                font-size: 12px;
+                padding: 7px 10px;
+            }
+
+            .logout-container {
+                width: auto;
+                padding: 0;
+            }
+
+            .main-content { overflow: visible; }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 12px;
+                height: auto;
+            }
+
+            .volunteer-area {
+                flex-direction: column;
+                overflow: visible;
+                padding: 14px 10px;
+            }
+
+            .panel-left,
+            .panel-right {
+                width: 98%;
+                height: auto;
+            }
+
+            .fime-bg-logo { width: 280px; }
+        }
     </style>
 </head>
 
 <body>
 
+    <!-- ══ SIDEBAR ══ -->
     <aside class="sidebar">
         <img src="../Img/Logo de equipo.jpeg" alt="Logo SIGAE" class="logo-sigae">
         <nav class="nav-buttons">
@@ -328,37 +450,54 @@
             <a href="Crea_Event.html" class="btn-nav">Eventos</a>
             <a href="Crear_QR.html" class="btn-nav">QR</a>
             <a href="Lista_Asisten.html" class="btn-nav">Lista de asistencia</a>
-            <a href="#" class="btn-nav active">Voluntariado</a>
+            <a href="Voluntariado.html" class="btn-nav active">Voluntariado</a>
         </nav>
         <div class="logout-container">
-            <a href="../Login.html" class="btn-nav" style="display: block;">Cerrar sesión</a>
+            <a href="../Login.html" class="btn-nav" style="display:block;">Cerrar sesión</a>
         </div>
     </aside>
 
+    <!-- ══ MAIN ══ -->
     <div class="main-content">
+
+        <!-- HEADER -->
         <header class="header">
             <div class="user-info">
-                <strong>Nombre:</strong> Roberto Juarez<br>
-                <strong>Correo:</strong> Sa_sly95_12@gamil.com
+                <strong>Nombre:</strong> <span id="user-nombre" class="valor">Usuario</span><br>
+                <strong>Correo:</strong> <span id="user-correo" class="valor">correo@ejemplo.com</span>
             </div>
+
             <div class="social-center">
-                <span>Asociación Cadereyta</span>
+                <span class="asociacion-titulo">Asociación Cadereyta</span>
                 <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" target="_blank" title="WhatsApp" style="background:#25D366; border-radius:10px;">
+                        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.862L.057 23.428a.5.5 0 00.609.61l5.692-1.463A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.502-5.177-1.381l-.36-.215-3.735.96.99-3.645-.236-.374A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+                        </svg>
+                    </a>
+                    <a href="#" target="_blank" title="Instagram" style="background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); border-radius:10px;">
+                        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
+
             <div class="header-right">
                 <img src="../Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
-                <i class="fa-solid fa-gear settings-icon"></i>
+                <i class="fa-solid fa-gear settings-icon" title="Configuración"></i>
             </div>
         </header>
 
+        <!-- ÁREA VOLUNTARIADO -->
         <div class="volunteer-area">
-            <img src="../Img/fime-logo-cel.png" alt="FIME Background" class="fime-bg-logo">
+            <img src="../Img/fime-logo-cel.png" alt="FIME fondo" class="fime-bg-logo">
 
+            <!-- Panel izquierdo: crear -->
             <section class="vol-panel panel-left">
                 <h1 class="title-vol">Voluntariado</h1>
+
                 <div class="input-row">
                     <strong>Evento:</strong>
                     <select id="reg-evento" class="select-capsule">
@@ -369,42 +508,42 @@
 
                 <div class="desc-container">
                     <strong>Descripción:</strong>
-                    <textarea id="reg-desc"
-                        class="desc-textarea">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam..."</textarea>
+                    <textarea id="reg-desc" class="desc-textarea">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam..."</textarea>
                 </div>
 
-                <div style="display: flex; justify-content: center; gap: 40px; margin-bottom: 15px;">
-                    <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="display:flex; justify-content:center; gap:40px; margin-bottom:18px;">
+                    <div style="display:flex; align-items:center; gap:10px;">
                         <strong>Voluntarios:</strong>
                         <input type="number" id="reg-max" class="num-box" value="11">
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <strong>puntos</strong>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <strong>Puntos:</strong>
                         <input type="number" id="reg-pts" class="num-box" value="3">
                     </div>
                 </div>
+
                 <button class="btn-beige" onclick="crearRegistro()">Crear</button>
             </section>
 
+            <!-- Panel derecho: consulta -->
             <section class="vol-panel panel-right">
                 <div class="input-row">
                     <strong>Evento:</strong>
-                    <select id="search-evento" class="select-capsule" onchange="actualizarConsulta()">
-                    </select>
-                    <button class="btn-beige" style="padding: 5px 10px;" onclick="descargarLista()">Voluntarios</button>
+                    <select id="search-evento" class="select-capsule" onchange="actualizarConsulta()"></select>
+                    <button class="btn-beige" style="padding:5px 12px;" onclick="descargarLista()">Voluntarios</button>
                 </div>
 
                 <div class="status-grid">
-                    <div style="grid-column: 1 / span 2; display: flex; flex-direction: column; align-items: center;">
-                        <strong>Maximo</strong>
+                    <div style="grid-column:1/span 2; display:flex; flex-direction:column; align-items:center;">
+                        <strong>Máximo</strong>
                         <div id="view-max" class="display-square">0</div>
                     </div>
-                    <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="display:flex; flex-direction:column; align-items:center;">
                         <strong>Registrados</strong>
                         <div id="view-reg" class="display-square">0</div>
                     </div>
-                    <div style="display: flex; flex-direction: column; align-items: center;">
-                        <strong>puntos</strong>
+                    <div style="display:flex; flex-direction:column; align-items:center;">
+                        <strong>Puntos</strong>
                         <div id="view-pts" class="display-square">0</div>
                     </div>
                 </div>
@@ -415,20 +554,29 @@
     </div>
 
     <script>
-        // Base de datos simulada
+        /* ── SESIÓN ── */
+        function setUsuario(nombre, correo) {
+            const elN = document.getElementById('user-nombre');
+            const elC = document.getElementById('user-correo');
+            if (nombre) { elN.textContent = nombre; elN.classList.add('activo'); }
+            if (correo) { elC.textContent = correo; elC.classList.add('activo'); }
+        }
+        setUsuario(
+            sessionStorage.getItem('nombre'),
+            sessionStorage.getItem('correo')
+        );
+
+        /* ── LÓGICA VOLUNTARIADO ── */
         let voluntariados = [
             { id: "Evento 4", desc: "Apoyo en logística de evento deportivo.", max: 11, reg: 7, pts: 3 }
         ];
 
         function crearRegistro() {
             const evento = document.getElementById('reg-evento').value;
-            const desc = document.getElementById('reg-desc').value;
-            const max = document.getElementById('reg-max').value;
-            const pts = document.getElementById('reg-pts').value;
-
-            // Evitar duplicados simples para el ejemplo
+            const desc   = document.getElementById('reg-desc').value;
+            const max    = document.getElementById('reg-max').value;
+            const pts    = document.getElementById('reg-pts').value;
             voluntariados = voluntariados.filter(v => v.id !== evento);
-
             voluntariados.push({ id: evento, desc, max, reg: 0, pts });
             alert("¡Registro de voluntariado creado!");
             cargarSelect();
@@ -447,7 +595,7 @@
         }
 
         function actualizarConsulta() {
-            const val = document.getElementById('search-evento').value;
+            const val  = document.getElementById('search-evento').value;
             const data = voluntariados.find(v => v.id === val);
             if (data) {
                 document.getElementById('view-max').textContent = data.max;
@@ -461,7 +609,6 @@
             alert("Descargando lista de inscritos para: " + evento + "\nSincronizando con la nube...");
         }
 
-        // Carga inicial
         window.onload = cargarSelect;
     </script>
 </body>

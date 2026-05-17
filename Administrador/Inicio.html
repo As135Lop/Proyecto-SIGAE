@@ -1,191 +1,286 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Inicio - SIGAE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            --verde-fondo-principal: #8b907c;
-            --verde-solido-paneles: #8a9b6e;
-            --cafe-botones: #8b5e3c;
-            --borde-negro: #1a1a1a;
-            /* El color del cuadro de bienvenida basado en el fondo */
-            --fondo-box-traslucido: rgba(139, 144, 124, 0.9); 
+            --verde-fondo: #c8cdb8;
+            --verde-panel: #8a9b6e;
+            --cafe-btn: #8b5e3c;
+            --negro-borde: #1a1a1a;
+            --fondo-box: rgba(139, 144, 124, 0.92);
+            --cafe-edit: #5d4037;
+            --gris-ph: #888;
+            --fondo-circulo: rgba(42, 58, 22, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Lora', serif;
-            background-color: var(--verde-fondo-principal);
-            height: 100vh;
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--verde-fondo);
+            min-height: 100vh;
             display: flex;
             overflow: hidden;
         }
 
-        /* BARRA LATERAL */
         .sidebar {
             width: 220px;
-            border-right: 2px solid var(--borde-negro);
+            min-width: 220px;
+            border-right: 2px solid var(--negro-borde);
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 10px 0;
-            background-color: var(--verde-solido-paneles);
-            z-index: 10;
+            padding: 14px 0;
+            background-color: var(--verde-panel);
+            z-index: 20;
+            overflow-y: auto;
+            flex-shrink: 0;
         }
 
         .logo-sigae {
-            width: 100px;
-            margin-bottom: 20px;
+            width: 130px;
+            height: 130px;
+            margin-bottom: 16px;
             border-radius: 50%;
-            border: 2px solid var(--borde-negro);
+            border: 3px solid var(--negro-borde);
+            object-fit: cover;
+            background: #3a4a25;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+            flex-shrink: 0;
         }
 
         .nav-buttons {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             width: 85%;
         }
 
         .btn-nav {
-            background-color: var(--cafe-botones);
-            border: 2px solid var(--borde-negro);
+            background-color: var(--cafe-btn);
+            border: 2px solid var(--negro-borde);
             padding: 10px;
-            font-family: 'Lora', serif;
-            font-weight: bold;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 13.5px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
             text-align: center;
             text-decoration: none;
-            color: black;
-            font-size: 14px;
+            color: #000;
+            display: block;
+            border-radius: 3px;
         }
 
-        /* EFECTO DE BRILLO EN BOTONES */
-        .btn-nav:hover, .btn-nav.active {
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        .btn-nav:hover,
+        .btn-nav.active {
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.75);
             filter: brightness(1.2);
-            transform: scale(1.05);
+            transform: scale(1.04);
         }
 
         .logout-container {
             margin-top: auto;
             width: 85%;
-            padding-bottom: 20px;
+            padding: 12px 0 18px;
         }
 
-        /* CONTENIDO PRINCIPAL */
+        /* MAIN */
         .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
-            position: relative;
+            overflow: hidden;
+            min-width: 0;
         }
 
         .header {
-            height: 100px;
-            border-bottom: 2px solid var(--borde-negro);
+            height: 78px;
+            border-bottom: 2px solid var(--negro-borde);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 25px;
-            background-color: var(--verde-solido-paneles);
+            padding: 8px 16px;
+            background-color: var(--verde-panel);
             z-index: 10;
+            flex-shrink: 0;
+            flex-wrap: nowrap;
+            overflow: hidden;
+            gap: 6px;
         }
 
-        .user-info { font-size: 14px; line-height: 1.4; }
+        .user-info {
+            font-size: 13px;
+            line-height: 1.7;
+            min-width: 150px;
+        }
 
-        /* SECCIÓN CENTRAL CON ICONOS */
+        .user-info strong {
+            font-weight: 700;
+        }
+
+        .valor {
+            color: var(--gris-ph);
+            font-style: italic;
+        }
+
+        .valor.activo {
+            color: inherit;
+            font-style: normal;
+        }
+
         .social-center {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .social-center span { font-weight: bold; font-size: 25px; }
+        .asociacion-titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
 
-        .social-icons { display: flex; gap: 20px; font-size: 32px; }
-        
-        .social-icons a { 
-            color: inherit; 
-            text-decoration: none; 
-            transition: transform 0.2s; 
+        .social-icons {
             display: flex;
-            background-color: white; /* Círculo/Cuadro blanco detrás para que no haya huecos */
-            border-radius: 50%; 
-            width: 40px;
-            height: 40px;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid var(--borde-negro);
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        
-        .social-icons a:hover { transform: translateY(-3px); }
 
-        /* Volvemos a los iconos que sí te funcionaban */
-        .fa-whatsapp { color: #25D366; }
-        .fa-instagram { color: #E1306C; }
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        }
 
-        .header-right { display: flex; align-items: center; gap: 20px; }
-        .logo-safime { height: 220px; width: auto; object-fit: contain; }
+        .social-icons a svg {
+            width: 36px;
+            height: 36px;
+        }
 
-        .settings-icon { font-size: 28px; cursor: pointer; }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
 
-        /* AREA DE BIENVENIDA */
+        .logo-safime {
+            height: 200px;
+            width: auto;
+            max-width: 160px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+        }
+
+        .settings-icon {
+            font-size: 22px;
+            cursor: pointer;
+            transition: transform 0.35s;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .settings-icon:hover {
+            transform: rotate(65deg);
+        }
+
         .welcome-area {
             flex: 1;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
-            background-color: var(--verde-fondo-principal);
+            gap: 18px;
+            padding: 18px;
+            overflow: hidden;
+        }
+
+        .fime-bg-circle {
+            display: none;
         }
 
         .fime-bg-logo {
             position: absolute;
-            width: 700px;
-            opacity: 0.5; 
-            z-index: 0;
+            width: 570px;
+            opacity: 0.5;
+            z-index: 1;
             pointer-events: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .welcome-box {
-            background-color: var(--fondo-box-traslucido); 
-            border: 2px solid var(--borde-negro);
-            width: 60%;
-            padding: 40px;
-            z-index: 1;
+            background-color: var(--fondo-box);
+            border: 2px solid var(--negro-borde);
+            width: 62%;
+            padding: 28px 34px 48px;
+            z-index: 2;
             position: relative;
-            box-shadow: 12px 12px 0px rgba(0,0,0,0.2);
+            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.18);
+            border-radius: 4px;
         }
 
         .welcome-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 14px;
         }
 
-        .welcome-title { margin: 0; font-size: 28px; font-weight: bold; }
+        .welcome-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0;
+        }
 
         .btn-edit {
-            color: #5d4037; 
-            font-weight: bold;
+            color: var(--cafe-edit);
+            font-weight: 700;
+            font-size: 13px;
             cursor: pointer;
-            padding: 4px 10px;
+            padding: 4px 12px;
+            border: 1.5px solid var(--cafe-edit);
+            border-radius: 3px;
+            transition: background 0.2s;
+            font-family: 'Nunito', sans-serif;
+            user-select: none;
+        }
+
+        .btn-edit:hover {
+            background: rgba(93, 64, 55, 0.15);
         }
 
         .welcome-text {
-            line-height: 1.8;
-            font-size: 16px;
+            line-height: 1.85;
+            font-size: 15px;
             font-style: italic;
             outline: none;
         }
@@ -194,20 +289,252 @@
             position: absolute;
             bottom: 10px;
             right: 10px;
-            width: 65px;
-            height: 65px;
+            width: 58px;
+            height: 58px;
             border-radius: 50%;
-            border: 1px solid var(--borde-negro);
+            border: 1.5px solid var(--negro-borde);
             object-fit: cover;
+            background: #3a4a25;
         }
 
+        .directiva-row {
+            display: flex;
+            gap: 20px;
+            z-index: 2;
+            width: 62%;
+            justify-content: center;
+        }
+
+        .directiva-card {
+            background-color: var(--fondo-box);
+            border: 2px solid var(--negro-borde);
+            border-radius: 4px;
+            padding: 16px 18px 14px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .cargo {
+            font-family: 'Playfair Display', serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.72;
+        }
+
+        .directiva-foto-wrap {
+            position: relative;
+            width: 78px;
+            height: 78px;
+        }
+
+        .directiva-foto {
+            width: 78px;
+            height: 78px;
+            border-radius: 50%;
+            border: 2px solid var(--negro-borde);
+            object-fit: cover;
+            background: #5a6e44;
+            display: block;
+        }
+
+        .btn-edit-foto {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--cafe-btn);
+            border: 1.5px solid var(--negro-borde);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 11px;
+            color: white;
+        }
+
+        .directiva-nombre {
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .input-nombre {
+            display: none;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.3);
+            border: 1.5px solid var(--negro-borde);
+            border-radius: 3px;
+            padding: 4px 8px;
+            width: 100%;
+        }
+
+        .directiva-redes {
+            display: flex;
+            gap: 10px;
+        }
+
+        .directiva-redes a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .directiva-redes a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .redes-edit {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            width: 100%;
+        }
+
+        .redes-edit input {
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.28);
+            border: 1.5px solid var(--negro-borde);
+            border-radius: 3px;
+            padding: 4px 8px;
+            width: 100%;
+        }
+
+        .redes-edit input::placeholder {
+            color: #555;
+        }
+
+        .btn-card-edit {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .btn-card-edit:hover {
+            opacity: 1;
+        }
+
+        .btn-card-save {
+            display: none;
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.38);
+            border: 1.5px solid var(--negro-borde);
+            border-radius: 3px;
+            padding: 4px 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-card-save:hover {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        @media (max-width: 700px) {
+            body {
+                flex-direction: column;
+                overflow-y: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                min-width: unset;
+                flex-direction: row;
+                flex-wrap: nowrap;
+            overflow: hidden;
+                justify-content: center;
+                padding: 10px;
+                border-right: none;
+                border-bottom: 2px solid var(--negro-borde);
+                overflow-y: visible;
+            }
+
+            .logo-sigae {
+                width: 70px;
+                height: 70px;
+                margin: 0 10px 0 0;
+            }
+
+            .nav-buttons {
+                flex-direction: row;
+                flex-wrap: nowrap;
+            overflow: hidden;
+                justify-content: center;
+                gap: 6px;
+                width: auto;
+            }
+
+            .btn-nav {
+                font-size: 12px;
+                padding: 7px 10px;
+            }
+
+            .logout-container {
+                width: auto;
+                padding: 0;
+            }
+
+            .main-content {
+                overflow: visible;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 12px;
+            }
+
+            .welcome-area {
+                overflow: visible;
+                padding: 14px 10px;
+            }
+
+            .welcome-box,
+            .directiva-row {
+                width: 98%;
+            }
+
+            .directiva-row {
+                flex-direction: column;
+            }
+
+            .fime-bg-logo {
+                width: 280px;
+            }
+
+            .fime-bg-circle {
+                width: 300px;
+                height: 300px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <aside class="sidebar">
         <img src="../Img/Logo de equipo.jpeg" alt="Logo SIGAE" class="logo-sigae">
-        
         <nav class="nav-buttons">
             <a href="Inicio.html" class="btn-nav active">Inicio</a>
             <a href="Miembros.html" class="btn-nav">Miembros</a>
@@ -217,71 +544,225 @@
             <a href="Lista_Asisten.html" class="btn-nav">Lista de asistencia</a>
             <a href="Voluntariado.html" class="btn-nav">Voluntariado</a>
         </nav>
-
         <div class="logout-container">
-            <a href="../Login.html" class="btn-nav" style="display: block;">Cerrar sesión</a>
+            <a href="../Login.html" class="btn-nav" style="display:block;">Cerrar sesión</a>
         </div>
     </aside>
 
     <div class="main-content">
-        
         <header class="header">
             <div class="user-info">
-                <strong>Nombre:</strong> Roberto Juarez<br>
-                <strong>Correo:</strong> Sa_sly95_12@gamil.com
+                <strong>Nombre:</strong> <span id="user-nombre" class="valor">Usuario</span><br>
+                <strong>Correo:</strong> <span id="user-correo" class="valor">correo@ejemplo.com</span>
             </div>
 
             <div class="social-center">
-                <span>Asociación Cadereyta</span>
+                <span class="asociacion-titulo">Asociación Cadereyta</span>
                 <div class="social-icons">
-                    <a href="#" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" target="_blank" title="WhatsApp" style="background:#25D366; border-radius:10px;">
+                        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                            <path
+                                d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.862L.057 23.428a.5.5 0 00.609.61l5.692-1.463A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.502-5.177-1.381l-.36-.215-3.735.96.99-3.645-.236-.374A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+                        </svg>
+                    </a>
+                    <a href="#" target="_blank" title="Instagram"
+                        style="background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); border-radius:10px;">
+                        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </a>
                 </div>
             </div>
 
             <div class="header-right">
                 <img src="../Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
-                <i class="fa-solid fa-gear settings-icon"></i>
+                <i class="fa-solid fa-gear settings-icon" title="Configuración"></i>
             </div>
         </header>
 
         <main class="welcome-area">
-            <img src="../Img/fime-logo-cel.png" alt="FIME Background" class="fime-bg-logo">
+            <img src="../Img/fime-logo-cel.png" alt="FIME fondo" class="fime-bg-logo">
 
             <div class="welcome-box">
                 <div class="welcome-header">
                     <h2 class="welcome-title">Bienvenidos</h2>
                     <span class="btn-edit" id="editToggle">Editar</span>
                 </div>
-                
                 <div class="welcome-text" id="editableText">
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                </div>
+                <img src="../Img/Logo de la Aso.jpeg" alt="Mini Logo" class="box-mini-logo">
+            </div>
+
+            <div class="directiva-row">
+
+                <div class="directiva-card" id="card-presidente">
+                    <span class="cargo">Presidente</span>
+                    <div class="directiva-foto-wrap">
+                        <img src="../Img/presidente.jpeg" alt="Foto Presidente" class="directiva-foto"
+                            id="foto-presidente">
+                        <div class="btn-edit-foto" id="btn-foto-presidente" title="Cambiar foto"
+                            onclick="cambiarFoto('presidente')">
+                            <i class="fa-solid fa-camera"></i>
+                        </div>
+                    </div>
+                    <input type="file" id="file-presidente" accept="image/*" style="display:none"
+                        onchange="previewFoto(this,'foto-presidente')">
+                    <span class="directiva-nombre" id="nombre-presidente">Nombre Presidente</span>
+                    <input class="input-nombre" id="input-nombre-presidente" placeholder="Nombre completo"
+                        value="Nombre Presidente">
+                    <div class="directiva-redes" id="redes-presidente">
+                        <a href="#" id="link-wp-presidente" title="WhatsApp"
+                            style="background:#25D366; border-radius:8px; width:30px; height:30px;">
+                            <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                                <path
+                                    d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.862L.057 23.428a.5.5 0 00.609.61l5.692-1.463A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.502-5.177-1.381l-.36-.215-3.735.96.99-3.645-.236-.374A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+                            </svg>
+                        </a>
+                        <a href="#" id="link-ig-presidente" title="Instagram"
+                            style="background:linear-gradient(135deg,#f09433,#dc2743,#bc1888); border-radius:8px; width:30px; height:30px;">
+                            <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="redes-edit" id="redes-edit-presidente">
+                        <input id="edit-wp-presidente" placeholder="WhatsApp (https://wa.me/...)">
+                        <input id="edit-ig-presidente" placeholder="Instagram (https://instagram.com/...)">
+                    </div>
+                    <button class="btn-card-save" id="save-presidente"
+                        onclick="guardarDirectivo('presidente')">Guardar</button>
+                    <i class="fa-solid fa-pen btn-card-edit" onclick="editarDirectivo('presidente')" title="Editar"></i>
                 </div>
 
-                <img src="../Img/Logo de la Aso.jpeg" alt="Mini Logo" class="box-mini-logo">
+                <div class="directiva-card" id="card-vicepresidente">
+                    <span class="cargo">Vicepresidente</span>
+                    <div class="directiva-foto-wrap">
+                        <img src="../Img/Vicepresidente.jpeg" alt="Foto Vicepresidente" class="directiva-foto"
+                            id="foto-vicepresidente">
+                        <div class="btn-edit-foto" id="btn-foto-vicepresidente" title="Cambiar foto"
+                            onclick="cambiarFoto('vicepresidente')">
+                            <i class="fa-solid fa-camera"></i>
+                        </div>
+                    </div>
+                    <input type="file" id="file-vicepresidente" accept="image/*" style="display:none"
+                        onchange="previewFoto(this,'foto-vicepresidente')">
+                    <span class="directiva-nombre" id="nombre-vicepresidente">Nombre Vicepresidente</span>
+                    <input class="input-nombre" id="input-nombre-vicepresidente" placeholder="Nombre completo"
+                        value="Nombre Vicepresidente">
+                    <div class="directiva-redes" id="redes-vicepresidente">
+                        <a href="#" id="link-wp-vicepresidente" title="WhatsApp"
+                            style="background:#25D366; border-radius:8px; width:30px; height:30px;">
+                            <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                                <path
+                                    d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.862L.057 23.428a.5.5 0 00.609.61l5.692-1.463A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.502-5.177-1.381l-.36-.215-3.735.96.99-3.645-.236-.374A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+                            </svg>
+                        </a>
+                        <a href="#" id="link-ig-vicepresidente" title="Instagram"
+                            style="background:linear-gradient(135deg,#f09433,#dc2743,#bc1888); border-radius:8px; width:30px; height:30px;">
+                            <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="redes-edit" id="redes-edit-vicepresidente">
+                        <input id="edit-wp-vicepresidente" placeholder="WhatsApp (https://wa.me/...)">
+                        <input id="edit-ig-vicepresidente" placeholder="Instagram (https://instagram.com/...)">
+                    </div>
+                    <button class="btn-card-save" id="save-vicepresidente"
+                        onclick="guardarDirectivo('vicepresidente')">Guardar</button>
+                    <i class="fa-solid fa-pen btn-card-edit" onclick="editarDirectivo('vicepresidente')"
+                        title="Editar"></i>
+                </div>
+
             </div>
         </main>
     </div>
 
     <script>
-        const editBtn = document.getElementById('editToggle');
-        const textField = document.getElementById('editableText');
-        let isEditing = false;
+        function setUsuario(nombre, correo) {
+            const elN = document.getElementById('user-nombre');
+            const elC = document.getElementById('user-correo');
+            if (nombre) { elN.textContent = nombre; elN.classList.add('activo'); }
+            if (correo) { elC.textContent = correo; elC.classList.add('activo'); }
+        }
+        setUsuario(
+            sessionStorage.getItem('nombre'),
+            sessionStorage.getItem('correo')
+        );
 
+        /* EDITAR BIENVENIDA */
+        const editBtn = document.getElementById('editToggle');
+        const textArea = document.getElementById('editableText');
+        let editing = false;
         editBtn.addEventListener('click', () => {
-            isEditing = !isEditing;
-            if (isEditing) {
-                textField.contentEditable = "true";
-                textField.style.backgroundColor = "rgba(255,255,255,0.3)";
-                textField.focus();
-                editBtn.innerText = "Guardar";
+            editing = !editing;
+            if (editing) {
+                textArea.contentEditable = 'true';
+                textArea.style.background = 'rgba(255,255,255,0.25)';
+                textArea.style.padding = '8px';
+                textArea.style.borderRadius = '3px';
+                textArea.focus();
+                editBtn.textContent = 'Guardar';
             } else {
-                textField.contentEditable = "false";
-                textField.style.backgroundColor = "transparent";
-                editBtn.innerText = "Editar";
-                alert("Texto actualizado");
+                textArea.contentEditable = 'false';
+                textArea.style.background = 'transparent';
+                textArea.style.padding = '0';
+                editBtn.textContent = 'Editar';
+                alert('Texto de bienvenida actualizado.');
             }
         });
+
+        /* EDITAR TARJETAS DIRECTIVA */
+        function editarDirectivo(c) {
+            document.getElementById(`nombre-${c}`).style.display = 'none';
+            document.getElementById(`input-nombre-${c}`).style.display = 'block';
+            document.getElementById(`redes-${c}`).style.display = 'none';
+            document.getElementById(`redes-edit-${c}`).style.display = 'flex';
+            document.getElementById(`save-${c}`).style.display = 'inline-block';
+            document.getElementById(`btn-foto-${c}`).style.display = 'flex';
+            document.getElementById(`input-nombre-${c}`).value =
+                document.getElementById(`nombre-${c}`).textContent;
+            document.getElementById(`edit-wp-${c}`).value =
+                document.getElementById(`link-wp-${c}`).href;
+            document.getElementById(`edit-ig-${c}`).value =
+                document.getElementById(`link-ig-${c}`).href;
+        }
+        function guardarDirectivo(c) {
+            document.getElementById(`nombre-${c}`).textContent =
+                document.getElementById(`input-nombre-${c}`).value;
+            document.getElementById(`link-wp-${c}`).href =
+                document.getElementById(`edit-wp-${c}`).value || '#';
+            document.getElementById(`link-ig-${c}`).href =
+                document.getElementById(`edit-ig-${c}`).value || '#';
+            document.getElementById(`nombre-${c}`).style.display = 'inline';
+            document.getElementById(`input-nombre-${c}`).style.display = 'none';
+            document.getElementById(`redes-${c}`).style.display = 'flex';
+            document.getElementById(`redes-edit-${c}`).style.display = 'none';
+            document.getElementById(`save-${c}`).style.display = 'none';
+            document.getElementById(`btn-foto-${c}`).style.display = 'none';
+            alert(`Datos de ${c} actualizados.`);
+        }
+        function cambiarFoto(c) { document.getElementById(`file-${c}`).click(); }
+        function previewFoto(input, imgId) {
+            if (input.files && input.files[0]) {
+                const r = new FileReader();
+                r.onload = e => document.getElementById(imgId).src = e.target.result;
+                r.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
 </body>
+
 </html>

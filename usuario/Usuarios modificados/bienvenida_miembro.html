@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Bienvenida - SIGAE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --verde-fondo: #c8cdb8;
+            --verde-panel: #8a9b6e;
+            --cafe-btn:    #8b5e3c;
+            --negro-borde: #1a1a1a;
+            --fondo-box:   rgba(139, 144, 124, 0.92);
+            --cafe-edit:   #5d4037;
+            --gris-ph:     #888;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--verde-fondo);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 220px;
+            min-width: 220px;
+            border-right: 2px solid var(--negro-borde);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            background-color: var(--verde-panel);
+            z-index: 10;
+            flex-shrink: 0;
+            overflow-y: auto;
+        }
+
+        .logo-sigae {
+            width: 130px;
+            height: 130px;
+            margin-bottom: 16px;
+            border-radius: 50%;
+            border: 3px solid var(--negro-borde);
+            object-fit: cover;
+            background: #3a4a25;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+            flex-shrink: 0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 85%;
+        }
+
+        .btn-nav {
+            background-color: var(--cafe-btn);
+            border: 2px solid var(--negro-borde);
+            padding: 10px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 13.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            color: #000;
+            display: block;
+            border-radius: 3px;
+        }
+
+        .btn-nav:hover, .btn-nav.active {
+            box-shadow: 0 0 20px rgba(255,255,255,0.75);
+            filter: brightness(1.2);
+            transform: scale(1.05);
+        }
+
+        .logout-container {
+            margin-top: auto;
+            width: 85%;
+            padding-bottom: 20px;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .header {
+            height: 78px;
+            border-bottom: 2px solid var(--negro-borde);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 16px;
+            background-color: var(--verde-panel);
+            z-index: 10;
+            flex-shrink: 0;
+            flex-wrap: nowrap;
+            overflow: hidden;
+            gap: 6px;
+        }
+
+        .user-info {
+            font-size: 13px;
+            line-height: 1.7;
+            min-width: 150px;
+        }
+        .user-info strong { font-weight: 700; }
+        .valor { color: var(--gris-ph); font-style: italic; }
+        .valor.activo { color: inherit; font-style: normal; }
+
+        .social-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .asociacion-titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .social-icons { display: flex; gap: 16px; align-items: center; }
+
+        .social-icons a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .social-icons a:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.25); }
+        .social-icons a svg { width: 36px; height: 36px; }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .logo-safime {
+            height: 200px;
+            width: auto;
+            max-width: 160px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+        }
+
+        .settings-icon {
+            font-size: 22px;
+            cursor: pointer;
+            transition: transform 0.35s;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+        .settings-icon:hover { transform: rotate(65deg); }
+
+        .welcome-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            gap: 18px;
+            padding: 18px;
+            overflow: hidden;
+            background-color: var(--verde-fondo);
+        }
+
+        .fime-bg-logo {
+            position: absolute;
+            width: 600px;
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .welcome-box {
+            background-color: var(--fondo-box);
+            border: 2px solid var(--negro-borde);
+            width: 62%;
+            padding: 30px 40px 48px;
+            z-index: 1;
+            position: relative;
+            box-shadow: 12px 12px 0px rgba(0,0,0,0.15);
+            border-radius: 4px;
+        }
+
+        .welcome-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .welcome-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        /* sin botón editar para miembro */
+        .welcome-text {
+            line-height: 1.85;
+            font-size: 15px;
+            font-style: italic;
+            outline: none;
+            padding: 10px 0;
+            min-height: 50px;
+        }
+
+        .box-mini-logo {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 1px solid var(--negro-borde);
+            object-fit: cover;
+            background: #3a4a25;
+        }
+
+        .directiva-row {
+            display: flex;
+            gap: 20px;
+            z-index: 2;
+            width: 62%;
+            justify-content: center;
+        }
+
+        .directiva-card {
+            background-color: var(--fondo-box);
+            border: 2px solid var(--negro-borde);
+            border-radius: 4px;
+            padding: 16px 18px 14px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.15);
+        }
+
+        .cargo {
+            font-family: 'Playfair Display', serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.72;
+        }
+
+        .directiva-foto {
+            width: 78px;
+            height: 78px;
+            border-radius: 50%;
+            border: 2px solid var(--negro-borde);
+            object-fit: cover;
+            background: #5a6e44;
+            display: block;
+        }
+
+        .directiva-nombre {
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .directiva-redes { display: flex; gap: 10px; }
+
+        .directiva-redes a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .directiva-redes a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        @media (max-width: 700px) {
+            body { flex-direction: column; overflow-y: auto; height: auto; }
+            .sidebar {
+                width: 100%;
+                min-width: unset;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow: hidden;
+                justify-content: center;
+                padding: 10px;
+                border-right: none;
+                border-bottom: 2px solid var(--negro-borde);
+            }
+            .logo-sigae { width: 70px; height: 70px; margin: 0 10px 0 0; }
+            .nav-buttons {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow: hidden;
+                justify-content: center;
+                gap: 6px;
+                width: auto;
+            }
+            .btn-nav { font-size: 11px; padding: 7px 8px; }
+            .logout-container { width: auto; padding: 0; }
+            .main-content { overflow: visible; }
+            .header { flex-direction: column; align-items: flex-start; padding: 10px 12px; height: auto; }
+            .welcome-area { overflow: visible; padding: 14px 10px; }
+            .welcome-box, .directiva-row { width: 98%; }
+            .directiva-row { flex-direction: column; }
+            .fime-bg-logo { width: 280px; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <img src="../Img/Logo de equipo.jpeg" alt="Logo SIGAE" class="logo-sigae">
+
+        <nav class="nav-buttons">
+            <a href="bienvenida.html"    class="btn-nav active">Inicio</a>
+            <a href="eventos.html"        class="btn-nav">Eventos</a>
+            <a href="voluntariado.html"   class="btn-nav">Voluntariado</a>
+            <a href="asistencia.html"     class="btn-nav">Asistencia</a>
+            <a href="lista_eventos.html"  class="btn-nav">Lista de eventos asistido</a>
+        </nav>
+
+        <div class="logout-container">
+            <a href="../Login.html" class="btn-nav" style="display:block;">Cerrar sesión</a>
+        </div>
+    </aside>
+
+    <div class="main-content">
+
+        <header class="header">
+            <div class="user-info">
+                <strong>Nombre:</strong> <span id="user-nombre" class="valor">Usuario</span><br>
+                <strong>Correo:</strong>  <span id="user-correo" class="valor">correo@ejemplo.com</span>
+            </div>
+
+            <div class="social-center">
+                <span class="asociacion-titulo">Asociación Cadereyta</span>
+                <div class="social-icons">
+                    <a href="https://wa.me/tu-numero" target="_blank" title="WhatsApp"
+                       style="background:#25D366; border-radius:10px;">
+                        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.862L.057 23.428a.5.5 0 00.609.61l5.692-1.463A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.502-5.177-1.381l-.36-.215-3.735.96.99-3.645-.236-.374A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/tu-usuario" target="_blank" title="Instagram"
+                       style="background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); border-radius:10px;">
+                        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <img src="../Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
+                <i class="fa-solid fa-gear settings-icon" title="Configuración"></i>
+            </div>
+        </header>
+
+        <main class="welcome-area">
+            <img src="../Img/fime-logo-cel.png" alt="FIME fondo" class="fime-bg-logo">
+
+            <!-- Cuadro bienvenida — sin botón Editar (miembro solo lee) -->
+            <div class="welcome-box">
+                <div class="welcome-header">
+                    <h2 class="welcome-title">Bienvenidos</h2>
+                </div>
+                <div class="welcome-text">
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                    mollit anim id est laborum."
+                </div>
+                <img src="../Img/Logo de la Aso.jpeg" alt="Mini Logo" class="box-mini-logo">
+            </div>
+            <div class="directiva-row">
+
+                <!-- Presidente -->
+                <div class="directiva-card">
+                    <span class="cargo">Presidente</span>
+                    <img src="../Img/foto-presidente.jpg" alt="Foto Presidente"
+                         class="directiva-foto" id="foto-presidente">
+                    <span class="directiva-nombre" id="nombre-presidente">Nombre Presidente</span>
+                    <div class="directiva-redes">
+                        <a href="#" id="link-wp-presidente" title="WhatsApp"
+                           style="background:#25D366; border-radius:8px; width:30px; height:30px;">
+                            <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.862L.057 23.428a.5.5 0 00.609.61l5.692-1.463A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.502-5.177-1.381l-.36-.215-3.735.96.99-3.645-.236-.374A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+                            </svg>
+                        </a>
+                        <a href="#" id="link-ig-presidente" title="Instagram"
+                           style="background:linear-gradient(135deg,#f09433,#dc2743,#bc1888); border-radius:8px; width:30px; height:30px;">
+                            <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="directiva-card">
+                    <span class="cargo">Vicepresidente</span>
+                    <img src="../Img/foto-vicepresidente.jpg" alt="Foto Vicepresidente"
+                         class="directiva-foto" id="foto-vicepresidente">
+                    <span class="directiva-nombre" id="nombre-vicepresidente">Nombre Vicepresidente</span>
+                    <div class="directiva-redes">
+                        <a href="#" id="link-wp-vicepresidente" title="WhatsApp"
+                           style="background:#25D366; border-radius:8px; width:30px; height:30px;">
+                            <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.862L.057 23.428a.5.5 0 00.609.61l5.692-1.463A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.65-.502-5.177-1.381l-.36-.215-3.735.96.99-3.645-.236-.374A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+                            </svg>
+                        </a>
+                        <a href="#" id="link-ig-vicepresidente" title="Instagram"
+                           style="background:linear-gradient(135deg,#f09433,#dc2743,#bc1888); border-radius:8px; width:30px; height:30px;">
+                            <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+
+        function setUsuario(nombre, correo) {
+            const elN = document.getElementById('user-nombre');
+            const elC = document.getElementById('user-correo');
+            if (nombre) { elN.textContent = nombre; elN.classList.add('activo'); }
+            if (correo)  { elC.textContent = correo;  elC.classList.add('activo'); }
+        }
+        setUsuario(
+            sessionStorage.getItem('nombre'), 
+            sessionStorage.getItem('correo')  
+        );
+
+        const editBtn = document.getElementById('editToggle');
+        const textField = document.getElementById('editableText');
+        let isEditing = false;
+
+        editBtn.addEventListener('click', () => {
+            isEditing = !isEditing;
+            
+            if (isEditing) {
+                textField.contentEditable = "true";
+                textField.style.backgroundColor = "rgba(255,255,255,0.3)";
+                textField.style.border = "1px dashed #000";
+                textField.focus();
+                editBtn.innerText = "Guardar";
+                editBtn.style.color = "white";
+                editBtn.style.backgroundColor = "green";
+            } else {
+                textField.contentEditable = "false";
+                textField.style.backgroundColor = "transparent";
+                textField.style.border = "none";
+                editBtn.innerText = "Editar";
+                editBtn.style.color = "#5d4037";
+                editBtn.style.backgroundColor = "transparent";
+                alert("Texto actualizado correctamente");
+            }
+        });
+    </script>
+</body>
+</html>
