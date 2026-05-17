@@ -28,6 +28,7 @@
             overflow: hidden;
         }
 
+        /* ══ SIDEBAR ══ */
         .sidebar {
             width: 220px;
             min-width: 220px;
@@ -89,6 +90,7 @@
             padding-bottom: 20px;
         }
 
+        /* ══ MAIN ══ */
         .main-content {
             flex: 1;
             display: flex;
@@ -97,6 +99,7 @@
             min-width: 0;
         }
 
+        /* ══ HEADER ══ */
         .header {
             height: 78px;
             border-bottom: 2px solid var(--negro-borde);
@@ -112,6 +115,10 @@
             gap: 6px;
         }
 
+        /*
+         * DATOS DE SESIÓN — ver <script> al final
+         * Conecta tu BD en el bloque marcado CONEXIÓN BD
+         */
         .user-info { font-size: 13px; line-height: 1.7; min-width: 150px; }
         .user-info strong { font-weight: 700; }
         .valor { color: var(--gris-ph); font-style: italic; }
@@ -170,6 +177,7 @@
         }
         .settings-icon:hover { transform: rotate(65deg); }
 
+        /* ══ ÁREA DE CONTENIDO ══ */
         .content-area {
             flex: 1;
             display: flex;
@@ -188,6 +196,7 @@
             pointer-events: none;
         }
 
+        /* ══ PANEL IZQUIERDO: Lista de eventos ══ */
         .events-list-panel {
             width: 290px;
             flex-shrink: 0;
@@ -242,6 +251,7 @@
             box-shadow: 0 0 10px rgba(255,255,255,0.65);
         }
 
+        /* ══ PANEL DERECHO: Detalle del evento ══ */
         .event-detail-panel {
             flex: 1;
             border: 2px solid var(--negro-borde);
@@ -302,6 +312,7 @@
             background: #3a4a25;
         }
 
+        /* ══ RESPONSIVO MÓVIL ══ */
         @media (max-width: 700px) {
             body { flex-direction: column; overflow-y: auto; height: auto; }
             .sidebar {
@@ -330,7 +341,9 @@
 </head>
 <body>
 
+    <!-- ═══════════ SIDEBAR ═══════════ -->
     <aside class="sidebar">
+        <!-- Logo SIGAE: reemplaza src, ej: src="../Img/Logo de equipo.jpeg" -->
         <img src="../Img/Logo de equipo.jpeg" alt="Logo SIGAE" class="logo-sigae">
         <nav class="nav-buttons">
             <a href="bienvenida.html"   class="btn-nav">Inicio</a>
@@ -344,9 +357,16 @@
         </div>
     </aside>
 
+    <!-- ═══════════ MAIN ═══════════ -->
     <div class="main-content">
 
-        <header class="header">>
+        <header class="header">
+            <!--
+             DATOS DE SESIÓN
+             Nombre -> id="user-nombre" | Correo -> id="user-correo"
+             En gris cuando no hay sesión. Conectar en <script> (busca CONEXIÓN BD).
+            -->
+            <div class="user-info">
                 <strong>Nombre:</strong> <span id="user-nombre" class="valor">Usuario</span><br>
                 <strong>Correo:</strong>  <span id="user-correo" class="valor">correo@ejemplo.com</span>
             </div>
@@ -371,20 +391,24 @@
             </div>
 
             <div class="header-right">
+                <!-- Logo SAFIME: reemplaza src, ej: src="../Img/SAFIMEpng.png" -->
                 <img src="../Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
-                <i class="fa-solid fa-gear settings-icon" title="Configuración"></i>
+                <i class="fa-solid fa-gear settings-icon" title="Configuración" onclick="irAConfig()"></i>
             </div>
         </header>
 
         <!-- CONTENT -->
         <div class="content-area">
+            <!-- Logo FIME de fondo: reemplaza src, ej: src="../Img/fime-logo-cel.png" -->
             <img src="../Img/fime-logo-cel.png" class="fime-bg-logo" alt="FIME fondo">
 
+            <!-- Panel izquierdo: lista -->
             <div class="events-list-panel">
                 <div class="events-list-title">Eventos</div>
                 <div class="events-list-scroll" id="eventsList"></div>
             </div>
 
+            <!-- Panel derecho: detalle -->
             <div class="event-detail-panel" id="detailPanel">
                 <div class="detail-title">Descripción del evento:</div>
                 <div class="detail-desc" id="detailDesc">
@@ -394,13 +418,25 @@
                     <div class="detail-input" id="detailHora">Hora: —</div>
                     <div class="detail-input" id="detailFecha">Fecha: —</div>
                 </div>
+                <!-- Mini logo: reemplaza src, ej: src="../Img/Logo de la Aso.jpeg" -->
                 <img src="../Img/Logo de la Aso.jpeg" alt="Logo Aso" class="mini-logo-aso">
             </div>
         </div>
     </div>
 
     <script>
-        
+        /* =====================================================
+         *  CONEXIÓN BD — DATOS DE SESIÓN
+         *
+         *  Opción A (sessionStorage):
+         *    sessionStorage.setItem('nombre', 'Salazar Slytherin');
+         *    sessionStorage.setItem('correo', 'correo@dominio.com');
+         *
+         *  Opción B (fetch a tu API):
+         *    fetch('/api/sesion')
+         *      .then(r => r.json())
+         *      .then(data => setUsuario(data.nombre, data.correo));
+         * ===================================================== */
         function setUsuario(nombre, correo) {
             const elN = document.getElementById('user-nombre');
             const elC = document.getElementById('user-correo');
@@ -412,6 +448,11 @@
             sessionStorage.getItem('correo')  // <- CONEXIÓN BD: correo
         );
 
+        function irAConfig() {
+            sessionStorage.setItem('paginaAnterior', window.location.href);
+            window.location.href = 'Configuracion.html';
+        }
+        
         const eventos = [
             { id: 1, nombre: 'Eventos 1', desc: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."', hora: '10:00', fecha: '2026-05-10' },
             { id: 2, nombre: 'Eventos 2', desc: '"Descripción del segundo evento. Praesent commodo cursus magna, vel scelerisque nisl consectetur et."', hora: '12:00', fecha: '2026-05-15' },

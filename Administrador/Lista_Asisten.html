@@ -535,7 +535,7 @@
 
             <div class="header-right">
                 <img src="../Img/SAFIMEpng.png" alt="SAFIME" class="logo-safime">
-                <i class="fa-solid fa-gear settings-icon" title="Configuración"></i>
+                <i class="fa-solid fa-gear settings-icon" title="Configuración" onclick="irAConfig()"></i>
             </div>
         </header>
 
@@ -613,6 +613,11 @@
             sessionStorage.getItem('nombre'),
             sessionStorage.getItem('correo')
         );
+
+        function irAConfig() {
+            sessionStorage.setItem('paginaAnterior', window.location.href);
+            window.location.href = '../Configuracion.html';
+        }
     </script>
 </body>
 
